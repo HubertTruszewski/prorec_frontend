@@ -21,7 +21,7 @@ pipeline {
         stage("Build") {
             steps {
                 gitlabCommitStatus(name: "build") {
-                    sh 'next build'
+                    sh 'npm run build'
                 }
             }
         }
