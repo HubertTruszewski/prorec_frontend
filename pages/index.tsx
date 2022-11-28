@@ -1,4 +1,4 @@
-import {ChallengeDTO} from "./Challenge.dto";
+import {ChallengeDTO} from "../Challenge.dto";
 import {useEffect, useState} from "react";
 import Editor from "@monaco-editor/react";
 
@@ -73,7 +73,7 @@ export default function Home() {
             />
             <button onClick={submitCode}>Submit code!</button>
             <br/>
-            {testResults}
+            <div style={{color: "blue", fontSize: "20px"}}>{testResults}</div>
             <br/>
             Challenges list:
             <ul>
