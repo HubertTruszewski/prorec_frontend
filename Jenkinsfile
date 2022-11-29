@@ -25,6 +25,12 @@ pipeline {
                 }
             }
         }
+        stage("Archive artifacts") {
+            steps {
+                    zip dir: '.next', glob: '', zipFile: 'frontend.zip', archive: true
+                }
+            }
+        }
     }
     post {
         always {
