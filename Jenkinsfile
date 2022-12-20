@@ -27,7 +27,7 @@ pipeline {
         }
         stage("Archive artifacts") {
             steps {
-                    zip dir: '.next', glob: '', zipFile: 'frontend.zip', archive: true
+                    zip dir: '.next', glob: '', zipFile: 'frontend' + ${env.BUILD_ID} + '.zip', archive: true
                 }
             }
         }
