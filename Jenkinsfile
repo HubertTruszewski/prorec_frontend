@@ -27,7 +27,10 @@ pipeline {
         }
         stage("Archive artifacts") {
             steps {
-                    zip dir: '.next', glob: '', zipFile: "frontend" + env.BUILD_ID + ".zip", archive: true
+                script {
+                        def now = new Date()
+                        zip dir: '.next', glob: '', zipFile: "frontend" + now.format("yyMMdd.HHmm", TimeZone.getTimeZone('UTC')) + ".zip", archive: true
+                    }
                 }
             }
         }
