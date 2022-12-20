@@ -21,9 +21,6 @@ export default function Home() {
     setCode(newCode ?? "");
   };
 
-  function returnToMenuHandler() {
-    router.push("/");
-  }
 
   useEffect(() => {
     fetch("/api/challenge/all")
