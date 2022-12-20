@@ -1,6 +1,6 @@
 import Navigation from "./Navigation";
 
-function Layout() {
+function Layout(props) {
   return (
     <div
       style={{
