@@ -34,13 +34,13 @@ const challengesManagement = () => {
         >
           {challenge.name}
           <br></br>
-        <Link
-          underline="none"
-          color="inherit"
-            href={"/challenges/"+ challenge.challengeId + "/edit"} 
-        >
-            <span style={{fontSize: "1rem", margin: "2rem"}}>manage</span>
-        </Link>
+          <Link
+            underline="none"
+            color="inherit"
+            href={"/challenges/" + challenge.challengeId + "/edit"}
+          >
+            <span style={{ fontSize: "1rem", margin: "2rem" }}>manage</span>
+          </Link>
         </Card>
       ))}
       <Card
@@ -57,12 +57,8 @@ const challengesManagement = () => {
       >
         New challenge
         <br></br>
-        <Link
-          underline="none"
-          color="inherit"
-            href="/challenges/create"
-        >
-            <span style={{fontSize: "5rem", margin: "2rem"}}>+</span>
+        <Link underline="none" color="inherit" href="/challenges/create">
+          <span style={{ fontSize: "5rem", margin: "2rem" }}>+</span>
         </Link>
       </Card>
     </div>

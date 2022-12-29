@@ -1,13 +1,19 @@
-import { ChallengeDTO, ChallengeType, LanguageName } from "../../../Challenge.dto";
+import {
+  ChallengeDTO,
+  ChallengeType,
+  LanguageName,
+} from "../../../Challenge.dto";
 import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import { useRouter } from "next/router";
-import { Card, Button } from "@mui/material";
+import { Card, Button, TextField, MenuItem, Select } from "@mui/material";
+import { TestCaseDTO } from "../../../TestCase.dto";
 
 export default function Home() {
   const router = useRouter();
+  const { challengeId } = router.query;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
   const [currentChallenge, setCurrentChallenge] =
@@ -15,11 +21,37 @@ export default function Home() {
   const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState<string>("javascript");
   const [testResults, setTestResults] = useState<string>("");
+  const [testExpression, setNewTestExpresion] = useState<string>("");
+  const [outputType, setOutputType] = useState<string>("");
+  const [expectedResult, setExpectedResult] = useState<string>("");
+  const [displayForm, setDisplayForm] = useState<String>("hidden");
 
   const codeChangeHandler = (newCode: string | undefined) => {
     setCode(newCode ?? "");
   };
 
+  const addTestCaseHandler = () => {
+    const testCase: TestCaseDTO = {
+      challengeId: parseInt(challengeId),
+      expression: testExpression,
+      expectedValue: expectedResult,
+      expectedValueType: outputType,
+    };
+    console.log(testCase);
+    fetch("/api/challenge/addTestCase", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(testCase),
+    });
+    setDisplayForm("hidden");
+  };
+
+  const newTestCaseHandler = () => {
+    setDisplayForm("visible");
+  };
 
   useEffect(() => {
     fetch("/api/challenge/all")
@@ -106,23 +138,6 @@ export default function Home() {
                 {currentChallenge?.type.toLowerCase()}
               </li>
             </ul>
-            <div role="presentation" style={{ margin: "auto" }}>
-              <Breadcrumbs aria-label="breadcrumb">
-                <span style={{ color: "purple", fontWeight: "bold" }}>
-                  Tasks:
-                </span>
-
-                {challengeList.map((challenge) => (
-                  <Link
-                    underline="hover"
-                    color="inherit"
-                    onClick={() => setCurrentChallenge(challenge)}
-                  >
-                    {challenge.name}
-                  </Link>
-                ))}
-              </Breadcrumbs>
-            </div>
           </Card>
 
           <Card
@@ -130,7 +145,7 @@ export default function Home() {
               borderRadius: "20px",
               marginRight: "3rem",
               marginY: "2vh",
-              padding: "10px",
+              padding: "2rem",
               borderColor: "black",
               width: "40rem",
               height: "80vh",
@@ -143,6 +158,57 @@ export default function Home() {
               </span>{" "}
               {currentChallenge?.exampleTestCases}
             </li>
+            <span onClick={newTestCaseHandler} style={{ fontSize: "3rem" }}>
+              +
+            </span>
+            <form style={{ visibility: displayForm }}>
+              <TextField
+                sx={{
+                  width: "32rem",
+                  marginX: "1rem",
+                  marginY: "1rem",
+                  float: "left",
+                }}
+                id="outlined-basic"
+                label="Expression"
+                variant="outlined"
+                onInput={(event) => {
+                  setNewTestExpresion((event.target as HTMLInputElement).value);
+                }}
+              />
+              <Select
+                labelId="select-difficulty"
+                id="difficulty"
+                value={outputType}
+                label="Difficulty level"
+                onChange={(event) => {
+                  setOutputType(event.target.value as string);
+                }}
+                sx={{
+                  width: "15rem",
+                  marginX: "1rem",
+                  float: "left",
+                }}
+              >
+                <MenuItem value={"INT"}>int</MenuItem>
+                <MenuItem value={"STRING"}>string</MenuItem>
+                <MenuItem value={"BOOLEAN"}>bool</MenuItem>
+              </Select>
+              <TextField
+                sx={{
+                  width: "15rem",
+                  marginX: "1rem",
+                  float: "left",
+                }}
+                id="outlined-basic"
+                label="Expected Result"
+                variant="outlined"
+                onInput={(event) => {
+                  setExpectedResult((event.target as HTMLInputElement).value);
+                }}
+              />
+              <button onClick={addTestCaseHandler}>Add Test Case</button>
+            </form>
           </Card>
 
           <Card

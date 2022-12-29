@@ -19,7 +19,7 @@ export default function CreateChallenge() {
   };
 
   const submitChallenge = () => {
-    const Challenge: CreateChallengeDTO = {
+    const challenge: CreateChallengeDTO = {
       name: name,
       description: description,
       codeSnippet: code,
@@ -27,14 +27,13 @@ export default function CreateChallenge() {
       exampleTestCases: "",
       language: language,
     };
-    console.log(Challenge);
     fetch("/api/challenge/add", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ Challenge }),
+      body: JSON.stringify(challenge),
     });
   };
 
