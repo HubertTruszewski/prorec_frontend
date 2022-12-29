@@ -1,4 +1,4 @@
-import { ChallengeDTO, ChallengeType, LanguageName } from "../../Challenge.dto";
+import { ChallengeDTO, ChallengeType, LanguageName } from "../../../Challenge.dto";
 import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
