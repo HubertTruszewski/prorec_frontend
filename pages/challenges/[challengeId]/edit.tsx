@@ -13,8 +13,8 @@ import { TestCaseDTO } from "../../../TestCase.dto";
 
 export default function Home() {
   const router = useRouter();
-  const challengeIdS  =  router.query.challengeId;
-  const challengeId = challengeIdS?.toString()
+  const challengeIdS = router.query.challengeId;
+  const challengeId = challengeIdS?.toString();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
   const [currentChallenge, setCurrentChallenge] =
@@ -146,59 +146,60 @@ export default function Home() {
             <span onClick={newTestCaseHandler} style={{ fontSize: "3rem" }}>
               +
             </span>
-            { displayForm &&(
-            <form>
-              <TextField
-                sx={{
-                  width: "32rem",
-                  marginX: "1rem",
-                  marginY: "1rem",
-                  float: "left",
-                }}
-                id="outlined-basic"
-                label="Expression"
-                variant="outlined"
-                onInput={(event) => {
-                  setNewTestExpresion((event.target as HTMLInputElement).value);
-                }}
-              />
-              <Select
-                labelId="select-difficulty"
-                id="difficulty"
-                value={outputType}
-                label="Difficulty level"
-                onChange={(event) => {
-                  setOutputType(event.target.value as string);
-                }}
-                sx={{
-                  width: "15rem",
-                  marginX: "1rem",
-                  float: "left",
-                }}
-              >
-                <MenuItem value={"INTEGER"}>int</MenuItem>
-                <MenuItem value={"STRING"}>string</MenuItem>
-                <MenuItem value={"BOOLEAN"}>bool</MenuItem>
-              </Select>
-              <TextField
-                sx={{
-                  width: "15rem",
-                  marginX: "1rem",
-                  float: "left",
-                }}
-                id="outlined-basic"
-                label="Expected Result"
-                variant="outlined"
-                onInput={(event) => {
-                  setExpectedResult((event.target as HTMLInputElement).value);
-                }}
-              />
-              <Button onClick={addTestCaseHandler}>Add Test Case</Button>
-              <Button onClick={() => setDisplayForm(false)}>Cancel</Button>
-            </form>
+            {displayForm && (
+              <form>
+                <TextField
+                  sx={{
+                    width: "32rem",
+                    marginX: "1rem",
+                    marginY: "1rem",
+                    float: "left",
+                  }}
+                  id="outlined-basic"
+                  label="Expression"
+                  variant="outlined"
+                  onInput={(event) => {
+                    setNewTestExpresion(
+                      (event.target as HTMLInputElement).value
+                    );
+                  }}
+                />
+                <Select
+                  labelId="select-difficulty"
+                  id="difficulty"
+                  value={outputType}
+                  label="Difficulty level"
+                  onChange={(event) => {
+                    setOutputType(event.target.value as string);
+                  }}
+                  sx={{
+                    width: "15rem",
+                    marginX: "1rem",
+                    float: "left",
+                  }}
+                >
+                  <MenuItem value={"INTEGER"}>int</MenuItem>
+                  <MenuItem value={"STRING"}>string</MenuItem>
+                  <MenuItem value={"BOOLEAN"}>bool</MenuItem>
+                </Select>
+                <TextField
+                  sx={{
+                    width: "15rem",
+                    marginX: "1rem",
+                    float: "left",
+                  }}
+                  id="outlined-basic"
+                  label="Expected Result"
+                  variant="outlined"
+                  onInput={(event) => {
+                    setExpectedResult((event.target as HTMLInputElement).value);
+                  }}
+                />
+                <Button onClick={addTestCaseHandler}>Add Test Case</Button>
+                <Button onClick={() => setDisplayForm(false)}>Cancel</Button>
+              </form>
             )}
           </Card>
-          
 
           <Card
             sx={{
