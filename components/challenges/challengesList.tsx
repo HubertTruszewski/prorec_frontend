@@ -1,5 +1,5 @@
 import ChallengeItem from "./ChallengeItem";
-import { ChallengeDTO } from "../../Challenge.dto";
+import {ChallengeDTO} from "../../Challenge.dto";
 import List from "@mui/material/List";
 
 export default function ChallengeList(props: { challenges: ChallengeDTO[] }) {
@@ -7,7 +7,7 @@ export default function ChallengeList(props: { challenges: ChallengeDTO[] }) {
     <>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {props.challenges.map((challenge: ChallengeDTO) => (
-          <ChallengeItem challenge={challenge} />
+          <ChallengeItem key={challenge.challengeId} challenge={challenge} />
         ))}
       </List>
     </>

@@ -1,14 +1,11 @@
-import { ChallengeDTO, ChallengeType, LanguageName } from "../../Challenge.dto";
-import { useEffect, useState } from "react";
+import {ChallengeDTO, ChallengeType, LanguageName} from "../../Challenge.dto";
+import {useEffect, useState} from "react";
 import Editor from "@monaco-editor/react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import { useRouter } from "next/router";
-import { Card, Button } from "@mui/material";
+import {Button, Card} from "@mui/material";
 
 export default function Home() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
   const [currentChallenge, setCurrentChallenge] =
     useState<ChallengeDTO>(defaultChallengeDTO);
@@ -31,7 +28,6 @@ export default function Home() {
         setCurrentChallenge(challengeList[0]);
         setLanguage(challengeList[0].language.toLowerCase());
         setCode(challengeList[0]?.codeSnippet);
-        setIsLoading(false);
       });
   }, []);
 
@@ -43,10 +39,6 @@ export default function Home() {
     setLanguage(currentChallenge.language.toLowerCase());
     setCode(currentChallenge?.codeSnippet);
   }, [currentChallenge]);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
 
   const submitCode = () => {
     fetch("/api/attempt/perform", {
@@ -113,7 +105,7 @@ export default function Home() {
                 </span>
 
                 {challengeList.map((challenge) => (
-                  <Link
+                  <Link key={challenge.challengeId}
                     underline="hover"
                     color="inherit"
                     onClick={() => setCurrentChallenge(challenge)}
@@ -165,7 +157,7 @@ export default function Home() {
                   enabled: false,
                 },
               }}
-              onChange={(value, ev) => codeChangeHandler(value)}
+              onChange={(value) => codeChangeHandler(value)}
             />
           </Card>
         </div>
