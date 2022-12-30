@@ -116,7 +116,7 @@ export default function CreateChallenge() {
               label="Description"
               variant="outlined"
               rows="10"
-              multiline="true"
+              multiline={true}
               onInput={(event) => {
                 setDescription((event.target as HTMLInputElement).value);
               }}

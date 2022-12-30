@@ -5,18 +5,15 @@ import {
 } from "../../../Challenge.dto";
 import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
 import { useRouter } from "next/router";
 import { Card, Button, TextField, MenuItem, Select } from "@mui/material";
-import { TestCaseDTO } from "../../../TestCase.dto";
+import { TestCaseDTO, TestCaseIdDTO } from "../../../TestCase.dto";
+import { fontSize } from "@mui/system";
 
-export default function Home() {
+export default function Edit() {
   const router = useRouter();
-  const challengeIdS = router.query.challengeId;
-  const challengeId = challengeIdS?.toString();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
+  const [testCaseList, setTestCaseList] = useState<TestCaseIdDTO[]>([]);
   const [currentChallenge, setCurrentChallenge] =
     useState<ChallengeDTO>(defaultChallengeDTO);
   const [code, setCode] = useState<string>("");
@@ -26,6 +23,49 @@ export default function Home() {
   const [outputType, setOutputType] = useState<string>("");
   const [expectedResult, setExpectedResult] = useState<string>("");
   const [displayForm, setDisplayForm] = useState<boolean>(false);
+  const [challengeId, setChallengeId] = useState<number>(-1);
+  const id = parseInt(router.query.challengeId! as string);
+
+  const fetchChallenge = async () => {
+    const url = "/api/challenge/" + id;
+    console.log("id z get data" + id);
+    console.log(url);
+    await fetch(url)
+      .then((data) => {
+        return data.json();
+      })
+      .then((challenge) => {
+        setCurrentChallenge(challenge);
+        setLanguage(challenge.language);
+        setCode(challenge.code);
+        setIsLoading(false);
+        setChallengeId(id);
+      });
+  };
+
+  const fetchTestCases = async () => {
+    const url = "/api/challenge/" + id + "/testCases";
+
+    await fetch(url)
+      .then((data) => {
+        return data.json();
+      })
+      .then((testCaseList) => {
+        setTestCaseList(testCaseList);
+      });
+  };
+
+  const getData = () => {
+    fetchChallenge();
+    setIsLoading(false);
+    fetchTestCases();
+  };
+
+  useEffect(() => {
+    if (id !== undefined && !Number.isNaN(id)) {
+      getData();
+    }
+  }, [id]);
 
   const codeChangeHandler = (newCode: string | undefined) => {
     setCode(newCode ?? "");
@@ -33,7 +73,7 @@ export default function Home() {
 
   const addTestCaseHandler = () => {
     const testCase: TestCaseDTO = {
-      challengeId: parseInt(challengeId),
+      challengeId: challengeId,
       expression: testExpression,
       expectedValue: expectedResult,
       expectedValueType: outputType,
@@ -48,38 +88,12 @@ export default function Home() {
       body: JSON.stringify(testCase),
     });
     setDisplayForm(false);
+    fetchTestCases();
   };
 
   const newTestCaseHandler = () => {
     setDisplayForm(true);
   };
-
-  useEffect(() => {
-    fetch("/api/challenge/all")
-      .then((data) => {
-        return data.json();
-      })
-      .then((challengeList) => {
-        setChallengeList(challengeList);
-        setCurrentChallenge(challengeList[0]);
-        setLanguage(challengeList[0].language.toLowerCase());
-        setCode(challengeList[0]?.codeSnippet);
-        setIsLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (currentChallenge === undefined) {
-      return;
-    }
-    console.log(currentChallenge);
-    setLanguage(currentChallenge.language.toLowerCase());
-    setCode(currentChallenge?.codeSnippet);
-  }, [currentChallenge]);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <>
@@ -120,7 +134,6 @@ export default function Home() {
                 <span style={{ color: "purple", fontWeight: "bold" }}>
                   Difficulty level:
                 </span>{" "}
-                {currentChallenge?.type.toLowerCase()}
               </li>
             </ul>
           </Card>
@@ -143,6 +156,37 @@ export default function Home() {
               </span>{" "}
               {currentChallenge?.exampleTestCases}
             </li>
+            <h2>Test Cases: </h2>
+            <ol>
+              {testCaseList.length != 0 &&
+                testCaseList.map((testCase) => (
+                  <li>
+                    <span
+                      style={{
+                        fontWeight: "700",
+                        fontSize: "1.3rem",
+                        color: "purple",
+                      }}
+                    >
+                      Test expression:
+                    </span>{" "}
+                    {testCase.expression}
+                    <br />
+                    <span style={{ fontWeight: "700" }}>
+                      {" "}
+                      Result type:
+                    </span>{" "}
+                    {testCase.expectedValueType}
+                    <br />
+                    <span style={{ fontWeight: "700" }}>
+                      Expected value:
+                    </span>{" "}
+                    {testCase.expectedValue}
+                    <br />
+                    <br />
+                  </li>
+                ))}
+            </ol>
             <span onClick={newTestCaseHandler} style={{ fontSize: "3rem" }}>
               +
             </span>

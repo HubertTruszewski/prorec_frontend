@@ -1,10 +1,8 @@
-import { ChallengeDTO, ChallengeType, LanguageName } from "../Challenge.dto";
-import { Card, Button, Link } from "@mui/material";
+import { ChallengeDTO } from "../../Challenge.dto";
+import { Button, Card, Link } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 const challengesManagement = () => {
-  const router = useRouter();
   const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
 
   useEffect(() => {
@@ -33,15 +31,18 @@ const challengesManagement = () => {
             float: "left",
           }}
         >
-          <span style={{fontSize: "2rem"}}>{challenge.name}</span>
+          <span style={{ fontSize: "2rem" }}>{challenge.name}</span>
           <br></br>
-          <Link
-            underline="none"
-            color="inherit"
-            href={"/challenges/" + challenge.challengeId + "/edit"}
-          >
-            <span style={{ fontSize: "1rem", margin: "4rem" }}>edit</span>
-          </Link>
+
+          <Button sx={{ margin: "15px" }} variant="contained">
+            <Link
+              underline="none"
+              color="inherit"
+              href={"/challenges/" + challenge.challengeId + "/edit"}
+            >
+              Edit
+            </Link>
+          </Button>
         </Card>
       ))}
       <Card
