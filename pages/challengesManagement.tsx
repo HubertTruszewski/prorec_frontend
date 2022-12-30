@@ -24,6 +24,7 @@ const challengesManagement = () => {
           sx={{
             borderRadius: "20px",
             padding: "5px",
+            textAlign: "center",
             justifyContent: "center",
             margin: "3rem",
             borderColor: "black",
@@ -32,14 +33,14 @@ const challengesManagement = () => {
             float: "left",
           }}
         >
-          {challenge.name}
+          <span style={{fontSize: "2rem"}}>{challenge.name}</span>
           <br></br>
           <Link
             underline="none"
             color="inherit"
             href={"/challenges/" + challenge.challengeId + "/edit"}
           >
-            <span style={{ fontSize: "1rem", margin: "2rem" }}>manage</span>
+            <span style={{ fontSize: "1rem", margin: "4rem" }}>edit</span>
           </Link>
         </Card>
       ))}

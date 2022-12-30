@@ -13,7 +13,8 @@ import { TestCaseDTO } from "../../../TestCase.dto";
 
 export default function Home() {
   const router = useRouter();
-  const { challengeId } = router.query;
+  const challengeIdS  =  router.query.challengeId;
+  const challengeId = challengeIdS?.toString()
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
   const [currentChallenge, setCurrentChallenge] =
@@ -24,7 +25,7 @@ export default function Home() {
   const [testExpression, setNewTestExpresion] = useState<string>("");
   const [outputType, setOutputType] = useState<string>("");
   const [expectedResult, setExpectedResult] = useState<string>("");
-  const [displayForm, setDisplayForm] = useState<String>("hidden");
+  const [displayForm, setDisplayForm] = useState<boolean>(false);
 
   const codeChangeHandler = (newCode: string | undefined) => {
     setCode(newCode ?? "");
@@ -46,11 +47,11 @@ export default function Home() {
       },
       body: JSON.stringify(testCase),
     });
-    setDisplayForm("hidden");
+    setDisplayForm(false);
   };
 
   const newTestCaseHandler = () => {
-    setDisplayForm("visible");
+    setDisplayForm(true);
   };
 
   useEffect(() => {
@@ -79,22 +80,6 @@ export default function Home() {
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
-
-  const submitCode = () => {
-    fetch("/api/attempt/perform", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        challengeId: currentChallenge.challengeId,
-        code: code,
-      }),
-    })
-      .then((result) => result.text())
-      .then((text) => setTestResults(text));
-  };
 
   return (
     <>
@@ -161,7 +146,8 @@ export default function Home() {
             <span onClick={newTestCaseHandler} style={{ fontSize: "3rem" }}>
               +
             </span>
-            <form style={{ visibility: displayForm }}>
+            { displayForm &&(
+            <form>
               <TextField
                 sx={{
                   width: "32rem",
@@ -190,7 +176,7 @@ export default function Home() {
                   float: "left",
                 }}
               >
-                <MenuItem value={"INT"}>int</MenuItem>
+                <MenuItem value={"INTEGER"}>int</MenuItem>
                 <MenuItem value={"STRING"}>string</MenuItem>
                 <MenuItem value={"BOOLEAN"}>bool</MenuItem>
               </Select>
@@ -207,9 +193,12 @@ export default function Home() {
                   setExpectedResult((event.target as HTMLInputElement).value);
                 }}
               />
-              <button onClick={addTestCaseHandler}>Add Test Case</button>
+              <Button onClick={addTestCaseHandler}>Add Test Case</Button>
+              <Button onClick={() => setDisplayForm(false)}>Cancel</Button>
             </form>
+            )}
           </Card>
+          
 
           <Card
             sx={{
@@ -242,9 +231,8 @@ export default function Home() {
           <Button
             sx={{ paddingY: "10px", paddingX: "20px", borderRadius: "15px" }}
             variant="outlined"
-            onClick={submitCode}
           >
-            Submit Challenge!
+            Submit Changes
           </Button>
         </div>
 
