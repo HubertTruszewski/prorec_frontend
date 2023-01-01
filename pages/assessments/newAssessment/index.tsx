@@ -4,6 +4,8 @@ import {NewAssessmentBasicInfoForm} from "../../../components/assessments/NewAss
 import {NewAssessmentChallengeSelect} from "../../../components/assessments/NewAssessmentChallengeSelect";
 import {ChallengeDTO} from "../../../Challenge.dto";
 import {Button} from "@mui/material";
+import {AssessmentDTO} from "../../../components/assessments/dto/AssessmentDTO";
+import {useRouter} from "next/router";
 
 export default function Home() {
     const newAssessmentDTO: NewAssessmentDTO = {
@@ -13,7 +15,11 @@ export default function Home() {
         expiryDate: "",
         solvingTime: 0
     };
+    const router = useRouter();
     const [challenges, setChallenges] = useState<ChallengeDTO[]>([]);
+    const getAssessmentPageLink = (assessmentId: number): string => {
+        return `/assessments/${assessmentId}/view`;
+    }
 
     useEffect(() => {
         fetch("/api/challenge/all")
@@ -35,8 +41,9 @@ export default function Home() {
             body: JSON.stringify(newAssessmentDTO),
         })
             .then((result) => result.json())
-            .then(result => console.log(result))
-            .catch(() => console.log("Error!"))
+            .then((assessment: AssessmentDTO) => {
+                void router.push(getAssessmentPageLink(assessment.assessmentId));
+            })
     }
 
     const handleInputChange = useCallback((event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {

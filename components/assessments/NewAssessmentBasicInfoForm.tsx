@@ -61,7 +61,7 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
                         setExpiryDateField(date);
                         props.setExpiryDate(date !== null ? date.toString() : "")
                     }}
-                    label="Purchase date"
+                    label="Expiry date"
                     renderInput={(params) => <TextField {...params} />}
                 />
             </LocalizationProvider>
