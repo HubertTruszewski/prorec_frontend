@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {AssessmentDTO} from "../../components/assessments/dto/AssessmentDTO";
-import {AssessmentsList} from "../../components/AssessmentsList";
+import {AssessmentsList} from "../../components/assessments/AssessmentsList";
 import {Button, Card, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Link from "next/link";
