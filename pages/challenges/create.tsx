@@ -2,17 +2,33 @@ import {CreateChallengeDTO} from "../../CreateChallenge.dto";
 import {useState} from "react";
 import Editor from "@monaco-editor/react";
 import {Button, Card, MenuItem, Select, TextField} from "@mui/material";
+import {ChallengeDTO, ChallengeType, LanguageName} from "../../Challenge.dto";
+import {useRouter} from "next/router";
 
 export default function CreateChallenge() {
+    const router = useRouter();
     const [name, setName] = useState<string>("");
     const [code, setCode] = useState<string>("");
-    const [difficulty, setDifficulty] = useState<string>("EASY");
-    const [language, setLanguage] = useState<string>("javascript");
+    const [difficulty, setDifficulty] = useState<ChallengeType>(ChallengeType.EASY);
+    const [language, setLanguage] = useState<LanguageName>(LanguageName.JAVASCRIPT);
     const [description, setDescription] = useState<string>("");
 
     const codeChangeHandler = (newCode: string | undefined) => {
         setCode(newCode ?? "");
     };
+
+    const getChallengePageLink = (challengeId: number): string => {
+        return `/challenges/${challengeId}/edit`
+    }
+
+    const getInitialCode = () => {
+        switch(language) {
+            case LanguageName.JAVASCRIPT:
+                return "// type initial code here"
+            case LanguageName.PYTHON:
+                return "# type initial code here"
+        }
+    }
 
     const submitChallenge = () => {
         const challenge: CreateChallengeDTO = {
@@ -30,7 +46,11 @@ export default function CreateChallenge() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(challenge),
-        });
+        }).then(data => data.json())
+            .then((challenge: ChallengeDTO) => {
+                const urlToRedirect: string = getChallengePageLink(challenge.challengeId);
+                void router.push(urlToRedirect);
+            });
     };
 
     return (
@@ -70,7 +90,7 @@ export default function CreateChallenge() {
                             value={difficulty}
                             label="Difficulty level"
                             onChange={(event) => {
-                                setDifficulty(event.target.value);
+                                setDifficulty(ChallengeType[event.target.value as keyof typeof ChallengeType]);
                             }}
                             sx={{
                                 width: "15rem",
@@ -89,7 +109,7 @@ export default function CreateChallenge() {
                             value={language}
                             label="Language"
                             onChange={(event) => {
-                                setLanguage(event.target.value);
+                                setLanguage(LanguageName[event.target.value as keyof typeof LanguageName]);
                             }}
                             sx={{
                                 width: "15rem",
@@ -135,7 +155,7 @@ export default function CreateChallenge() {
                         height="63vh"
                         width="35vw"
                         theme="vs-dark"
-                        value={"//type initial code here"}
+                        value={getInitialCode()}
                         language={language.toLowerCase()}
                         options={{
                             minimap: {

@@ -1,4 +1,3 @@
-import Layout from "../../../components/layout/Layout";
 import React, {ChangeEvent, SyntheticEvent, useCallback, useEffect, useState} from "react";
 import {NewAssessmentDTO} from "../../../components/assessments/dto/NewAssessmentDTO";
 import {NewAssessmentBasicInfoForm} from "../../../components/assessments/NewAssessmentBasicInfoForm";
@@ -53,21 +52,19 @@ export default function Home() {
     }
 
     return (<>
-        <Layout>
-            <div style={{height: "40vh"}}>
-                <NewAssessmentBasicInfoForm handleInputChange={handleInputChange} setExpiryDate={setExpiryDate}/>
-                <NewAssessmentChallengeSelect challengesList={challenges}
-                                              handleChallengesChange={handleChallengesChange}/>
-                <div style={{marginLeft: "50rem", marginRight: "50rem", clear: "both"}}>
-                    <Button
-                        sx={{paddingY: "10px", paddingX: "20px", borderRadius: "15px"}}
-                        variant="outlined"
-                        onClick={createAssessment}
-                    >
-                        Create assessment
-                    </Button>
-                </div>
+        <div style={{height: "40vh"}}>
+            <NewAssessmentBasicInfoForm handleInputChange={handleInputChange} setExpiryDate={setExpiryDate}/>
+            <NewAssessmentChallengeSelect challengesList={challenges}
+                                          handleChallengesChange={handleChallengesChange}/>
+            <div style={{marginLeft: "50rem", marginRight: "50rem", clear: "both"}}>
+                <Button
+                    sx={{paddingY: "10px", paddingX: "20px", borderRadius: "15px"}}
+                    variant="outlined"
+                    onClick={createAssessment}
+                >
+                    Create assessment
+                </Button>
             </div>
-        </Layout>
+        </div>
     </>)
 }

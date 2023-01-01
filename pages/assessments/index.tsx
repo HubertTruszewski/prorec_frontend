@@ -1,4 +1,3 @@
-import Layout from "../../components/layout/Layout";
 import React, {useEffect, useState} from "react";
 import {AssessmentDTO} from "../../components/assessments/dto/AssessmentDTO";
 import {AssessmentsList} from "../../components/AssessmentsList";
@@ -17,29 +16,27 @@ export default function () {
     }, [])
 
     return (<>
-        <Layout>
-            <Card sx={{margin: "20px"}}>
-                <div>
-                    <Typography
-                        sx={{flex: '1 1 100%', margin: "10px"}}
-                        variant="h4"
-                        id="tableTitle"
-                        component="div"
-                    >
-                        Assessments
-                    </Typography>
-                    <Button
-                        sx={{margin: "15px"}}
-                        variant="contained"
-                        startIcon={<AddIcon/>}
-                        component={Link}
-                        href={newAssessmentPageLink}
-                    >
-                        New assessment
-                    </Button>
-                </div>
-                <AssessmentsList assessmentsList={assessmentsList}/>
-            </Card>
-        </Layout>
+        <Card sx={{margin: "20px"}}>
+            <div>
+                <Typography
+                    sx={{flex: '1 1 100%', margin: "10px"}}
+                    variant="h4"
+                    id="tableTitle"
+                    component="div"
+                >
+                    Assessments
+                </Typography>
+                <Button
+                    sx={{margin: "15px"}}
+                    variant="contained"
+                    startIcon={<AddIcon/>}
+                    component={Link}
+                    href={newAssessmentPageLink}
+                >
+                    New assessment
+                </Button>
+            </div>
+            <AssessmentsList assessmentsList={assessmentsList}/>
+        </Card>
     </>)
 }
