@@ -1,4 +1,4 @@
-import {AssessmentDTO} from "./assessments/dto/AssessmentDTO";
+import {AssessmentDTO} from "./dto/AssessmentDTO";
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import React from "react";
 import Link from "next/link";

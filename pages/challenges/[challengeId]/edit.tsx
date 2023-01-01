@@ -11,7 +11,7 @@ export default function Edit() {
     const [currentChallenge, setCurrentChallenge] =
         useState<ChallengeDTO>(defaultChallengeDTO);
     const [code, setCode] = useState<string>("");
-    const [language, setLanguage] = useState<string>("javascript");
+    const [language, setLanguage] = useState<LanguageName>(LanguageName.JAVASCRIPT);
     const [testExpression, setNewTestExpression] = useState<string>("");
     const [outputType, setOutputType] = useState<string>("");
     const [expectedResult, setExpectedResult] = useState<string>("");
@@ -28,7 +28,7 @@ export default function Edit() {
             .then((challenge) => {
                 setCurrentChallenge(challenge);
                 setLanguage(challenge.language);
-                setCode(challenge.code);
+                setCode(challenge.codeSnippet);
                 setChallengeId(id);
             });
     };
@@ -120,7 +120,8 @@ export default function Edit() {
                             <li>
                                 <span style={{color: "purple", fontWeight: "bold"}}>
                                   Difficulty level:
-                                </span>{" "}
+                                </span>
+                                {" " + currentChallenge?.type}
                             </li>
                         </ul>
                     </Card>
@@ -137,16 +138,17 @@ export default function Edit() {
                             float: "right",
                         }}
                     >
-                        <li>
-                          <span style={{color: "purple", fontWeight: "bold"}}>
-                            Example test case:
-                          </span>{" "}
-                            {currentChallenge?.exampleTestCases}
-                        </li>
+                        <div style={{color: "purple", fontWeight: "bold"}}>
+                            Example test cases:
+                        </div>
+                        <span style={{whiteSpace: "pre-line"}}>
+                                {currentChallenge?.exampleTestCases}
+                        </span>
                         <h2>Test Cases: </h2>
                         <ol>
                             {testCaseList.length != 0 &&
-                                testCaseList.map(testCase => { console.log(testCase);
+                                testCaseList.map(testCase => {
+                                    console.log(testCase);
                                     return <li key={testCase.testCaseId}>
                                         <span
                                             style={{
@@ -246,7 +248,7 @@ export default function Edit() {
                             width="65rem"
                             theme="vs-dark"
                             value={code}
-                            language={language}
+                            language={language.toLowerCase()}
                             options={{
                                 minimap: {
                                     enabled: false,
