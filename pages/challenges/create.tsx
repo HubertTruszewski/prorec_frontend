@@ -12,6 +12,7 @@ export default function CreateChallenge() {
     const [difficulty, setDifficulty] = useState<ChallengeType>(ChallengeType.EASY);
     const [language, setLanguage] = useState<LanguageName>(LanguageName.JAVASCRIPT);
     const [description, setDescription] = useState<string>("");
+    const [exampleTestCases, setExampleTestCases] = useState<string>("");
 
     const codeChangeHandler = (newCode: string | undefined) => {
         setCode(newCode ?? "");
@@ -36,7 +37,7 @@ export default function CreateChallenge() {
             description: description,
             codeSnippet: code,
             type: difficulty,
-            exampleTestCases: "",
+            exampleTestCases: exampleTestCases,
             language: language,
         };
         fetch("/api/challenge/add", {
@@ -59,12 +60,12 @@ export default function CreateChallenge() {
                 <Card
                     sx={{
                         borderRadius: "20px",
-                        paddingY: "3vh",
+                        paddingY: "2vh",
                         paddingX: "4rem",
                         marginX: "3rem",
                         marginY: "4vh",
                         borderColor: "black",
-                        height: "63vh",
+                        height: "80vh",
                         width: "55vw",
                         float: "left",
                     }}
@@ -74,7 +75,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "15rem",
                                 marginX: "1rem",
-                                marginY: "2rem",
+                                marginY: "1rem",
                                 float: "left",
                             }}
                             id="outlined-basic"
@@ -95,7 +96,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "15rem",
                                 marginX: "1rem",
-                                marginY: "2rem",
+                                marginY: "1rem",
                                 float: "left",
                             }}
                         >
@@ -114,7 +115,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "15rem",
                                 marginX: "1rem",
-                                marginY: "2rem",
+                                marginY: "1rem",
                                 float: "left",
                             }}
                         >
@@ -125,7 +126,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "49rem",
                                 marginX: "1rem",
-                                marginY: "4rem",
+                                marginY: "0rem",
                                 float: "left",
                             }}
                             id="outlined-basic"
@@ -137,6 +138,22 @@ export default function CreateChallenge() {
                                 setDescription((event.target as HTMLInputElement).value);
                             }}
                         />
+                        <TextField
+                            sx={{
+                                width: "49rem",
+                                marginX: "1rem",
+                                marginY: "4rem",
+                                float: "left",
+                            }}
+                            id="outlined-basic"
+                            label="Example test cases"
+                            variant="outlined"
+                            rows="6"
+                            multiline={true}
+                            onInput={(event) => {
+                                setExampleTestCases((event.target as HTMLInputElement).value);
+                            }}
+                        />
                     </form>
 
                     <div role="presentation" style={{margin: "auto"}}></div>
@@ -146,7 +163,7 @@ export default function CreateChallenge() {
                     sx={{
                         borderRadius: "20px",
                         marginLeft: "2vw",
-                        marginY: "4vh",
+                        marginY: "0vh",
                         borderColor: "black",
                         float: "left",
                     }}
