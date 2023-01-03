@@ -20,7 +20,7 @@ export const AssessmentSelectedChallenges = ({selectedChallenges}: AssessmentSel
         padding: "10px",
         borderColor: "black",
         width: "40rem",
-        height: "80vh",
+        height: "28vh",
         float: "right",
     }}>
         <span style={{color: "purple", fontWeight: "bold"}}>

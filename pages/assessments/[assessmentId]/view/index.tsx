@@ -4,12 +4,15 @@ import {AssessmentDTO, AssessmentStatus} from "../../../../components/assessment
 import {AssessmentBasicInfo} from "../../../../components/assessments/AssessmentBasicInfo";
 import {AssessmentSelectedChallenges} from "../../../../components/assessments/AssessmentSelectedChallenges";
 import {ChallengeDTO} from "../../../../Challenge.dto";
+import {AssessmentAttempts} from "../../../../components/assessments/AssessmentAttempts";
+import {AttemptDTO} from "../../../../components/assessments/dto/AttemptDTO";
 
 export default function () {
     const router = useRouter();
     const assessmentId = router.query.assessmentId;
     const [assessment, setAssessment] = useState<AssessmentDTO>(defaultAssessment);
     const [challenges, setChallenges] = useState<ChallengeDTO[]>([]);
+    const [attempts, setAttempts] = useState<AttemptDTO[]>([]);
 
     const fetchAssessment = () => {
         if (assessmentId === undefined) {
@@ -29,13 +32,24 @@ export default function () {
             });
     }
 
-    useEffect(() => {
-        fetchAssessment();
-    }, [assessmentId])
+    const fetchAttempts = () => {
+        if (assessmentId === undefined) {
+            return;
+        }
+        fetch("/api/attempt/assessment/" + assessmentId)
+            .then((data) => {
+                return data.json();
+            })
+            .then((attemptsList) => {
+                setAttempts(attemptsList);
+            });
+    }
 
     useEffect(() => {
+        fetchAssessment();
         fetchChallenges();
-    }, [])
+        fetchAttempts();
+    }, [assessmentId])
 
     const cancelAssessment = (assessmentId: number) => {
         fetch("/api/assessment/cancel/" + assessmentId, {method: "PUT"})
@@ -49,6 +63,7 @@ export default function () {
     return (<>
             <AssessmentBasicInfo assessment={assessment} cancelAssessment={cancelAssessment}/>
             <AssessmentSelectedChallenges selectedChallenges={getChallengesListForAssessment()}/>
+            <AssessmentAttempts attempts={attempts} challenges={getChallengesListForAssessment()} />
         </>
     )
 }
