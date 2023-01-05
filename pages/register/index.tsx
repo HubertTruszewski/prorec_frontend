@@ -1,4 +1,4 @@
-import {Alert, Button, Card, TextField} from "@mui/material";
+import {Alert, Card, TextField} from "@mui/material";
 import {ChangeEvent, useEffect, useState} from "react";
 import {AuthService} from "../../services/AuthService";
 import Link from "next/link";
@@ -35,11 +35,11 @@ export default function () {
         <Card
             sx={{
                 borderRadius: "20px",
-                marginY: "10vh",
+                marginY: "20vh",
                 padding: "2rem",
                 borderColor: "black",
                 width: "40rem",
-                height: "60vh",
+                height: "50vh",
                 float: "center",
                 justifyContent: "center",
                 textAlign: "center"
@@ -74,8 +74,10 @@ export default function () {
                         value={newUserDTO.password}
                     />
                 </div>
-                <div style={{marginTop: "100px"}}>
-                    <Button style={{width: "223px",}} variant={"contained"} onClick={handleRegister}>Register</Button>
+                <div style={{marginTop: "20px"}}>
+                    <button style={{background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
+                            onClick={handleRegister}>Register</button>
                 </div>
                 {success && <Alert sx={{marginTop: "10px"}} severity={"success"}>
                     Successfully registered! Now you can go to <Link href={"/login"}><b>login page</b></Link>.
