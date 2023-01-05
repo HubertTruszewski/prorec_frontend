@@ -38,7 +38,7 @@ export default function Home() {
                     </Link>
                 </p>
                 <p style={{marginTop: "50px"}}>Do you want to join PROREC as a recruiter?
-                    <Link href={"/login"} style={{marginLeft: "5px"}}>
+                    <Link href={"/register"} style={{marginLeft: "5px"}}>
                         <b>
                             <i>Register</i>
                         </b>
