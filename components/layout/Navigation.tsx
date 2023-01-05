@@ -44,14 +44,14 @@ const Navigation = () => {
                 <div style={{display: "flex", alignItems: "center"}}>
                     <Link href={"/"}>
                         <span style={{fontSize: "56px", paddingLeft: "20px"}}>
-                            <span style={{fontWeight: "bold", color: "#8ef5f3"}}>PRO</span>
-                            <span style={{fontWeight: "bold", color: "purple"}}>REC</span>
+                            <span style={{fontWeight: "bold", color: "#A0EEFF"}}>PRO</span>
+                            <span style={{fontWeight: "bold", color: "#BA53FF"}}>REC</span>
                         </span>
                     </Link>
                     {user && <span style={{alignItems: "start", marginLeft: "30px", display: "flex"}}>
-                    <Breadcrumbs>
+                    <Breadcrumbs style={{marginTop: "7px"}}>
                         {menuItems.map(
-                            menuItem => <Link key={menuItem.path} href={menuItem.path} style={{fontSize: "30px"}}>
+                            menuItem => <Link key={menuItem.path} href={menuItem.path} style={{padding: "10px", fontSize: "30px", color: "#F5E5FF"}}>
                                 {menuItem.text}
                             </Link>)}
                     </Breadcrumbs>
