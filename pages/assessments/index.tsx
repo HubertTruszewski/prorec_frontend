@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {AssessmentDTO} from "../../components/assessments/dto/AssessmentDTO";
 import {AssessmentsList} from "../../components/assessments/AssessmentsList";
-import {Button, Card, Typography} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import {Card} from "@mui/material";
 import Link from "next/link";
 import {authHeader} from "../../services/authHeader";
 import {AuthService} from "../../services/AuthService";
@@ -26,25 +25,19 @@ export default function () {
     }, [])
 
     return (<>
-        <Card sx={{margin: "20px"}}>
+        <Card sx={{borderRadius: "20px", margin: "50px"}}>
             <div>
-                <Typography
-                    sx={{flex: '1 1 100%', margin: "10px"}}
-                    variant="h4"
-                    id="tableTitle"
-                    component="div"
+                <button
+                    style={{margin: "15px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
                 >
-                    Assessments
-                </Typography>
-                <Button
-                    sx={{margin: "15px"}}
-                    variant="contained"
-                    startIcon={<AddIcon/>}
-                    component={Link}
-                    href={newAssessmentPageLink}
-                >
-                    New assessment
-                </Button>
+                    <Link
+                        color="inherit"
+                        href={newAssessmentPageLink}
+                    >
+                       <b>+</b> New assessment
+                    </Link>
+                </button>
             </div>
             <AssessmentsList assessmentsList={assessmentsList}/>
         </Card>
