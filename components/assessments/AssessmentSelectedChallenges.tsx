@@ -16,14 +16,14 @@ export const AssessmentSelectedChallenges = ({selectedChallenges}: AssessmentSel
     return <Card sx={{
         borderRadius: "20px",
         marginRight: "3rem",
-        marginY: "2vh",
-        padding: "10px",
+        marginTop: "50px",
+        paddingLeft: "20px",
         borderColor: "black",
-        width: "40rem",
-        height: "28vh",
+        width: "50rem",
+        height: "40vh",
         float: "right",
     }}>
-        <span style={{color: "purple", fontWeight: "bold"}}>
+        <span style={{color: "#BA53FF", fontWeight: "bold"}}>
             <h1>
                 Selected challenges
             </h1>

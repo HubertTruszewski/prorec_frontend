@@ -12,14 +12,14 @@ export const AssessmentBasicInfo = ({assessment, cancelAssessment}: AssessmentBa
     return <Card sx={{
         borderRadius: "20px",
         marginLeft: "3rem",
-        marginY: "2vh",
-        padding: "10px",
+        marginTop: "50px",
+        paddingLeft: "20px",
         borderColor: "black",
-        width: "50rem",
-        height: "80vh",
+        width: "55rem",
+        height: "82vh",
         float: "left",
     }}>
-        <span style={{color: "purple", fontWeight: "bold"}}>
+        <span style={{color: "#BA53FF", fontWeight: "bold"}}>
             <h1>
                 Basic info
             </h1>

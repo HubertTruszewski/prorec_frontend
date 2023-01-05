@@ -3,7 +3,6 @@ import {NewAssessmentDTO} from "../../../components/assessments/dto/NewAssessmen
 import {NewAssessmentBasicInfoForm} from "../../../components/assessments/NewAssessmentBasicInfoForm";
 import {NewAssessmentChallengeSelect} from "../../../components/assessments/NewAssessmentChallengeSelect";
 import {ChallengeDTO} from "../../../Challenge.dto";
-import {Button} from "@mui/material";
 import {AssessmentDTO} from "../../../components/assessments/dto/AssessmentDTO";
 import {useRouter} from "next/router";
 import {authHeader} from "../../../services/authHeader";
@@ -69,14 +68,14 @@ export default function Home() {
             <NewAssessmentBasicInfoForm handleInputChange={handleInputChange} setExpiryDate={setExpiryDate}/>
             <NewAssessmentChallengeSelect challengesList={challenges}
                                           handleChallengesChange={handleChallengesChange}/>
-            <div style={{marginLeft: "50rem", marginRight: "50rem", clear: "both"}}>
-                <Button
-                    sx={{paddingY: "10px", paddingX: "20px", borderRadius: "15px"}}
-                    variant="outlined"
+            <div style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}>
+                <button
+                    style={{marginTop: "370px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
                     onClick={createAssessment}
                 >
                     Create assessment
-                </Button>
+                </button>
             </div>
         </div>
     </>)
