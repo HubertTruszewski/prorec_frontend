@@ -1,11 +1,18 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type {AppProps} from 'next/app'
 import Layout from '../components/layout/Layout'
+import {AuthVerify} from "../services/AuthVerify";
+import {AuthService} from "../services/AuthService";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return (
+    const logOut = () => {
+        AuthService.logout();
+    }
+
+    return (
     <Layout>
-    <Component {...pageProps} />
+        <Component {...pageProps} />
+        <AuthVerify logOut={logOut} />
     </Layout>
     )
   }

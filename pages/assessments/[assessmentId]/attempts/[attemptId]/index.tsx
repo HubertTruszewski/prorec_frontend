@@ -5,6 +5,8 @@ import {useRouter} from "next/router";
 import {AttemptDTO} from "../../../../../components/assessments/dto/AttemptDTO";
 import {ChallengeDTO, ChallengeType, LanguageName} from "../../../../../Challenge.dto";
 import {TestResultDTO} from "../../../../../components/assessments/dto/TestResultDTO";
+import {authHeader} from "../../../../../services/authHeader";
+import {AuthService} from "../../../../../services/AuthService";
 
 export default function () {
     const router = useRouter();
@@ -14,22 +16,28 @@ export default function () {
     const [testResults, setTestResults] = useState<TestResultDTO[]>([])
 
     useEffect(() => {
+        if (AuthService.protectSite(router)) {
+            return;
+        }
         if (attemptId === undefined) {
             return;
         }
-        fetch("/api/attempt/" + attemptId)
+        fetch("/api/attempt/" + attemptId, {headers: authHeader()})
             .then(data => data.json())
             .then(attempt => setAttempt(attempt))
     }, [attemptId])
 
     useEffect(() => {
+        if (AuthService.protectSite(router)) {
+            return;
+        }
         if (attempt.attemptId === 0) {
             return;
         }
-        fetch("/api/challenge/" + attempt.challengeId)
+        fetch("/api/challenge/" + attempt.challengeId, {headers: authHeader()})
             .then(data => data.json())
             .then(challenge => setChallenge(challenge))
-        fetch("/api/attempt/results/" + attempt.attemptId)
+        fetch("/api/attempt/results/" + attempt.attemptId, {headers: authHeader()})
             .then(data => data.json())
             .then(results => setTestResults(results))
     }, [attempt])

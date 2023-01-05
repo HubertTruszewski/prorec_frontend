@@ -6,6 +6,8 @@ import {AssessmentSelectedChallenges} from "../../../../components/assessments/A
 import {ChallengeDTO} from "../../../../Challenge.dto";
 import {AssessmentAttempts} from "../../../../components/assessments/AssessmentAttempts";
 import {AttemptDTO} from "../../../../components/assessments/dto/AttemptDTO";
+import {authHeader} from "../../../../services/authHeader";
+import {AuthService} from "../../../../services/AuthService";
 
 export default function () {
     const router = useRouter();
@@ -18,12 +20,12 @@ export default function () {
         if (assessmentId === undefined) {
             return;
         }
-        fetch("/api/assessment/" + assessmentId)
+        fetch("/api/assessment/" + assessmentId, {headers: authHeader()})
             .then(data => data.json()).then(data => setAssessment(data));
     }
 
     const fetchChallenges = () => {
-        fetch("/api/challenge/all")
+        fetch("/api/challenge/all", {headers: authHeader()})
             .then((data) => {
                 return data.json();
             })
@@ -36,7 +38,7 @@ export default function () {
         if (assessmentId === undefined) {
             return;
         }
-        fetch("/api/attempt/assessment/" + assessmentId)
+        fetch("/api/attempt/assessment/" + assessmentId, {headers: authHeader()})
             .then((data) => {
                 return data.json();
             })
@@ -46,13 +48,16 @@ export default function () {
     }
 
     useEffect(() => {
+        if (AuthService.protectSite(router)) {
+            return;
+        }
         fetchAssessment();
         fetchChallenges();
         fetchAttempts();
     }, [assessmentId])
 
     const cancelAssessment = (assessmentId: number) => {
-        fetch("/api/assessment/cancel/" + assessmentId, {method: "PUT"})
+        fetch("/api/assessment/cancel/" + assessmentId, {headers: authHeader(), method: "PUT"})
             .then(() => fetchAssessment())
     }
 
@@ -63,7 +68,7 @@ export default function () {
     return (<>
             <AssessmentBasicInfo assessment={assessment} cancelAssessment={cancelAssessment}/>
             <AssessmentSelectedChallenges selectedChallenges={getChallengesListForAssessment()}/>
-            <AssessmentAttempts attempts={attempts} challenges={getChallengesListForAssessment()} />
+            <AssessmentAttempts attempts={attempts} challenges={getChallengesListForAssessment()}/>
         </>
     )
 }

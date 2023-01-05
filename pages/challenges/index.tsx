@@ -1,12 +1,21 @@
 import {ChallengeDTO} from "../../Challenge.dto";
 import {Button, Card, Link} from "@mui/material";
 import {useEffect, useState} from "react";
+import {authHeader} from "../../services/authHeader";
+import {AuthService} from "../../services/AuthService";
+import {useRouter} from "next/router";
 
 export default function () {
+    const router = useRouter();
     const [challengeList, setChallengeList] = useState<ChallengeDTO[]>([]);
 
     useEffect(() => {
-        fetch("/api/challenge/all")
+        if (AuthService.protectSite(router)) {
+            return;
+        }
+        fetch("/api/challenge/all", {
+            headers: {...authHeader()}
+        })
             .then((data) => {
                 return data.json();
             })

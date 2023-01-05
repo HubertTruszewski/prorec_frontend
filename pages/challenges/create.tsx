@@ -1,9 +1,11 @@
 import {CreateChallengeDTO} from "../../CreateChallenge.dto";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Editor from "@monaco-editor/react";
 import {Button, Card, MenuItem, Select, TextField} from "@mui/material";
 import {ChallengeDTO, ChallengeType, LanguageName} from "../../Challenge.dto";
 import {useRouter} from "next/router";
+import {authHeader} from "../../services/authHeader";
+import {AuthService} from "../../services/AuthService";
 
 export default function CreateChallenge() {
     const router = useRouter();
@@ -13,6 +15,12 @@ export default function CreateChallenge() {
     const [language, setLanguage] = useState<LanguageName>(LanguageName.JAVASCRIPT);
     const [description, setDescription] = useState<string>("");
     const [exampleTestCases, setExampleTestCases] = useState<string>("");
+
+    useEffect(() => {
+        if (AuthService.protectSite(router)) {
+            return;
+        }
+    })
 
     const codeChangeHandler = (newCode: string | undefined) => {
         setCode(newCode ?? "");
@@ -43,6 +51,7 @@ export default function CreateChallenge() {
         fetch("/api/challenge/add", {
             method: "POST",
             headers: {
+                ...authHeader(),
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
@@ -179,7 +188,7 @@ export default function CreateChallenge() {
                                 enabled: false,
                             },
                         }}
-                        onChange={(value, ev) => codeChangeHandler(value)}
+                        onChange={(value) => codeChangeHandler(value)}
                     />
                 </Card>
 

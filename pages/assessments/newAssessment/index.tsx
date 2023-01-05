@@ -6,6 +6,8 @@ import {ChallengeDTO} from "../../../Challenge.dto";
 import {Button} from "@mui/material";
 import {AssessmentDTO} from "../../../components/assessments/dto/AssessmentDTO";
 import {useRouter} from "next/router";
+import {authHeader} from "../../../services/authHeader";
+import {AuthService} from "../../../services/AuthService";
 
 export default function Home() {
     const newAssessmentDTO: NewAssessmentDTO = {
@@ -22,7 +24,10 @@ export default function Home() {
     }
 
     useEffect(() => {
-        fetch("/api/challenge/all")
+        if (AuthService.protectSite(router)) {
+            return;
+        }
+        fetch("/api/challenge/all", {headers: authHeader()})
             .then((data) => {
                 return data.json();
             })
@@ -35,6 +40,7 @@ export default function Home() {
         fetch("/api/assessment/add", {
             method: "POST",
             headers: {
+                ...authHeader(),
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },

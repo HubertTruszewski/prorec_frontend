@@ -4,6 +4,8 @@ import Editor from "@monaco-editor/react";
 import {useRouter} from "next/router";
 import {Button, Card, MenuItem, Select, TextField} from "@mui/material";
 import {TestCaseDTO, TestCaseIdDTO} from "../../../TestCase.dto";
+import {authHeader} from "../../../services/authHeader";
+import {AuthService} from "../../../services/AuthService";
 
 export default function Edit() {
     const router = useRouter();
@@ -23,7 +25,7 @@ export default function Edit() {
         const url = "/api/challenge/" + id;
         console.log("id z get data" + id);
         console.log(url);
-        fetch(url)
+        fetch(url, {headers: authHeader()})
             .then((data) => data.json())
             .then((challenge) => {
                 setCurrentChallenge(challenge);
@@ -36,7 +38,7 @@ export default function Edit() {
     const fetchTestCases = () => {
         const url = "/api/challenge/" + id + "/testCases";
 
-        fetch(url)
+        fetch(url, {headers: authHeader()})
             .then((data) => data.json())
             .then((testCaseList) => {
                 setTestCaseList(testCaseList);
@@ -49,6 +51,9 @@ export default function Edit() {
     };
 
     useEffect(() => {
+        if (AuthService.protectSite(router)) {
+            return;
+        }
         if (id !== undefined && !Number.isNaN(id)) {
             getData();
         }
@@ -69,13 +74,15 @@ export default function Edit() {
         fetch("/api/challenge/addTestCase", {
             method: "POST",
             headers: {
+                ...authHeader(),
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(testCase),
-        }).catch();
+        }).then(() => {
+            fetchTestCases();
+        });
         setDisplayForm(false);
-        fetchTestCases();
     };
 
     const newTestCaseHandler = () => {
