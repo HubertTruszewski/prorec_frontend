@@ -1,9 +1,17 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Card} from "@mui/material";
 import Link from "next/link";
 import {AuthService} from "../services/AuthService";
+import {JwtResponse} from "../components/login/dto/JwtResponse";
 
 export default function Home() {
+    const [userData, setUserData] = useState<JwtResponse | null>(null);
+    useEffect(() => {
+        if (localStorage) {
+            const userData: JwtResponse = AuthService.getCurrentUser();
+            setUserData(userData);
+        }
+    }, [])
     return (<div style={{justifyContent: "center", display: "flex"}}>
         <Card
             sx={{
@@ -18,7 +26,7 @@ export default function Home() {
                 textAlign: "center"
             }}
         >
-            {AuthService.getCurrentUser() ? <div>
+            {userData ? <div>
                 <h1>Hi, {AuthService.getCurrentUser().user.username}!</h1>
                 We wish you a pleasant day!
             </div> : <div>
