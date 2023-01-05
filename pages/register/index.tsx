@@ -35,7 +35,7 @@ export default function () {
         <Card
             sx={{
                 borderRadius: "20px",
-                marginY: "2vh",
+                marginY: "10vh",
                 padding: "2rem",
                 borderColor: "black",
                 width: "40rem",
@@ -45,8 +45,8 @@ export default function () {
                 textAlign: "center"
             }}
         >
-            <h1 style={{color: "purple", fontWeight: "bold"}}>
-                LOGIN
+            <h1 style={{color: "#BA53FF", fontWeight: "bold",}}>
+                REGISTER
             </h1>
             <div>
                 <div style={{marginTop: "60px"}}>
@@ -74,8 +74,8 @@ export default function () {
                         value={newUserDTO.password}
                     />
                 </div>
-                <div style={{marginTop: "20px"}}>
-                    <Button variant={"contained"} onClick={handleRegister}>Register</Button>
+                <div style={{marginTop: "100px"}}>
+                    <Button style={{width: "223px",}} variant={"contained"} onClick={handleRegister}>Register</Button>
                 </div>
                 {success && <Alert sx={{marginTop: "10px"}} severity={"success"}>
                     Successfully registered! Now you can go to <Link href={"/login"}><b>login page</b></Link>.

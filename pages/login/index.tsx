@@ -40,11 +40,11 @@ export default function () {
         }
     })
 
-    return <div style={{justifyContent: "center", display: "flex"}}>
+    return <div style={{justifyContent: "center", display: "flex",}}>
         <Card
             sx={{
                 borderRadius: "20px",
-                marginY: "2vh",
+                marginY: "10vh",
                 padding: "2rem",
                 borderColor: "black",
                 width: "40rem",
@@ -54,7 +54,7 @@ export default function () {
                 textAlign: "center"
             }}
         >
-            <h1 style={{color: "purple", fontWeight: "bold"}}>
+            <h1 style={{color: "#BA53FF", fontWeight: "bold"}}>
                 LOGIN
             </h1>
             <div>
@@ -64,8 +64,8 @@ export default function () {
                 <div style={{marginTop: "20px"}}>
                     <TextField type={"password"} label={"Password"} name={"password"} onChange={handleTestFieldChange}/>
                 </div>
-                <div style={{marginTop: "20px"}}>
-                    <Button variant={"contained"} onClick={handleLogin}>Log in</Button>
+                <div style={{marginTop: "176px"}}>
+                    <Button style={{width: "223px"}} variant={"contained"} onClick={handleLogin}>Log in</Button>
                 </div>
                 {errorVisibility && <Alert sx={{marginTop: "10px"}} severity={"error"}>
                     Invalid username and/or password
