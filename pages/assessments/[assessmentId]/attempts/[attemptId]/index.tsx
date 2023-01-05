@@ -56,7 +56,7 @@ export default function () {
             height: "50vh",
             float: "left",
         }}>
-            <span style={{color: "purple", fontWeight: "bold"}}>
+            <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                 <h1>Code</h1>
             </span>
             <Editor
@@ -85,7 +85,7 @@ export default function () {
             float: "right",
         }}>
             <div>
-                <span style={{color: "purple", fontWeight: "bold"}}>
+                <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                     <h1>Test summary</h1>
                 </span>
             </div>
@@ -110,7 +110,7 @@ export default function () {
             height: "60vh",
             float: "right",
         }}>
-            <span style={{color: "purple", fontWeight: "bold"}}>
+            <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                 <h1>Results details:</h1>
             </span>
             <TableContainer>

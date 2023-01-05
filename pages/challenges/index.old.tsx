@@ -74,25 +74,25 @@ export default function Home() {
             }}
           >
             <h1 style={{ marginTop: "0px" }}>
-              <span style={{ color: "purple", fontWeight: "bold" }}>
+              <span style={{ color: "#BA53FF", fontWeight: "bold" }}>
                 {currentChallenge?.name}
               </span>
             </h1>
             <ul>
               <li>
-                <span style={{ color: "purple", fontWeight: "bold" }}>
+                <span style={{ color: "#BA53FF", fontWeight: "bold" }}>
                   Task:
                 </span>{" "}
                 {currentChallenge?.description}
               </li>
               <li>
-                <span style={{ color: "purple", fontWeight: "bold" }}>
+                <span style={{ color: "#BA53FF", fontWeight: "bold" }}>
                   Programming language:
                 </span>{" "}
                 {currentChallenge?.language}
               </li>
               <li>
-                <span style={{ color: "purple", fontWeight: "bold" }}>
+                <span style={{ color: "#BA53FF", fontWeight: "bold" }}>
                   Difficulty level:
                 </span>{" "}
                 {currentChallenge?.type.toLowerCase()}
@@ -100,7 +100,7 @@ export default function Home() {
             </ul>
             <div role="presentation" style={{ margin: "auto" }}>
               <Breadcrumbs aria-label="breadcrumb">
-                <span style={{ color: "purple", fontWeight: "bold" }}>
+                <span style={{ color: "#BA53FF", fontWeight: "bold" }}>
                   Tasks:
                 </span>
 
@@ -130,7 +130,7 @@ export default function Home() {
             }}
           >
             <li>
-              <span style={{ color: "purple", fontWeight: "bold" }}>
+              <span style={{ color: "#BA53FF", fontWeight: "bold" }}>
                 Example test case:
               </span>{" "}
               {currentChallenge?.exampleTestCases}
