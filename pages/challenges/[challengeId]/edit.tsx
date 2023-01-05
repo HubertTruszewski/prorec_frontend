@@ -97,35 +97,35 @@ export default function Edit() {
                         sx={{
                             borderRadius: "20px",
                             paddingY: "5px",
-                            paddingX: "10px",
-                            marginX: "3rem",
-                            marginY: "2vh",
+                            paddingX: "20px",
+                            marginX: "50px",
+                            marginTop: "50px",
                             borderColor: "black",
-                            heightMax: "18vh",
+                            height: "13vh",
                             width: "65rem",
                             float: "left",
                         }}
                     >
                         <h1 style={{marginTop: "0px"}}>
-                          <span style={{color: "purple", fontWeight: "bold"}}>
+                          <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                             {currentChallenge?.name}
                           </span>
                         </h1>
                         <ul>
                             <li>
-                                <span style={{color: "purple", fontWeight: "bold"}}>
+                                <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                                   Task:
                                 </span>{" "}
                                 {currentChallenge?.description}
                             </li>
                             <li>
-                                <span style={{color: "purple", fontWeight: "bold"}}>
+                                <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                                   Programming language:
                                 </span>{" "}
                                 {currentChallenge?.language}
                             </li>
                             <li>
-                                <span style={{color: "purple", fontWeight: "bold"}}>
+                                <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                                   Difficulty level:
                                 </span>
                                 {" " + currentChallenge?.type}
@@ -136,16 +136,16 @@ export default function Edit() {
                     <Card
                         sx={{
                             borderRadius: "20px",
-                            marginRight: "3rem",
-                            marginY: "2vh",
+                            marginRight: "4rem",
+                            marginTop: "50px",
                             padding: "2rem",
                             borderColor: "black",
                             width: "40rem",
-                            height: "80vh",
+                            height: "75vh",
                             float: "right",
                         }}
                     >
-                        <div style={{color: "purple", fontWeight: "bold"}}>
+                        <div style={{color: "#BA53FF", fontWeight: "bold"}}>
                             Example test cases:
                         </div>
                         <span style={{whiteSpace: "pre-line"}}>
@@ -161,7 +161,7 @@ export default function Edit() {
                                             style={{
                                                 fontWeight: "700",
                                                 fontSize: "1.3rem",
-                                                color: "purple",
+                                                color: "#BA53FF",
                                             }}
                                         >
                                           Test expression:
@@ -191,8 +191,8 @@ export default function Edit() {
                                 <TextField
                                     sx={{
                                         width: "32rem",
-                                        marginX: "1rem",
-                                        marginY: "1rem",
+                                        marginX: "15px",
+                                        marginY: "15px",
                                         float: "left",
                                     }}
                                     id="outlined-basic"
@@ -245,9 +245,10 @@ export default function Edit() {
                         sx={{
                             borderRadius: "20px",
                             marginLeft: "3rem",
-                            marginY: "3vh",
+                            marginTop: "4vh",
                             borderColor: "black",
                             float: "left",
+                            height: "58vh",
                         }}
                     >
                         <Editor
@@ -267,14 +268,14 @@ export default function Edit() {
                 </div>
 
                 <div
-                    style={{marginLeft: "50rem", marginRight: "50rem", clear: "both"}}
+                    style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}
                 >
-                    <Button
-                        sx={{paddingY: "10px", paddingX: "20px", borderRadius: "15px"}}
-                        variant="outlined"
+                    <button
+                        style={{marginTop: "40px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.5rem", fontSize: "17px"}}
                     >
                         Submit Changes
-                    </Button>
+                    </button>
                 </div>
             </div>
         </>

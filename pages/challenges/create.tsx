@@ -1,7 +1,7 @@
 import {CreateChallengeDTO} from "../../CreateChallenge.dto";
 import {useEffect, useState} from "react";
 import Editor from "@monaco-editor/react";
-import {Button, Card, MenuItem, Select, TextField} from "@mui/material";
+import {Card, MenuItem, Select, TextField} from "@mui/material";
 import {ChallengeDTO, ChallengeType, LanguageName} from "../../Challenge.dto";
 import {useRouter} from "next/router";
 import {authHeader} from "../../services/authHeader";
@@ -72,10 +72,10 @@ export default function CreateChallenge() {
                         paddingY: "2vh",
                         paddingX: "4rem",
                         marginX: "3rem",
-                        marginY: "4vh",
+                        marginTop: "50px",
                         borderColor: "black",
-                        height: "80vh",
-                        width: "55vw",
+                        height: "75vh",
+                        width: "50vw",
                         float: "left",
                     }}
                 >
@@ -84,7 +84,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "15rem",
                                 marginX: "1rem",
-                                marginY: "1rem",
+                                marginY: "2rem",
                                 float: "left",
                             }}
                             id="outlined-basic"
@@ -105,7 +105,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "15rem",
                                 marginX: "1rem",
-                                marginY: "1rem",
+                                marginY: "2rem",
                                 float: "left",
                             }}
                         >
@@ -124,7 +124,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "15rem",
                                 marginX: "1rem",
-                                marginY: "1rem",
+                                marginY: "2rem",
                                 float: "left",
                             }}
                         >
@@ -135,7 +135,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "49rem",
                                 marginX: "1rem",
-                                marginY: "0rem",
+                                marginTop: "1rem",
                                 float: "left",
                             }}
                             id="outlined-basic"
@@ -151,7 +151,7 @@ export default function CreateChallenge() {
                             sx={{
                                 width: "49rem",
                                 marginX: "1rem",
-                                marginY: "4rem",
+                                marginY: "3rem",
                                 float: "left",
                             }}
                             id="outlined-basic"
@@ -171,14 +171,16 @@ export default function CreateChallenge() {
                 <Card
                     sx={{
                         borderRadius: "20px",
-                        marginLeft: "2vw",
-                        marginY: "0vh",
+                        marginX: "4rem",
+                        marginTop: "50px",
                         borderColor: "black",
+                        height: "75vh",
+                        width: "35vw",
                         float: "left",
                     }}
                 >
                     <Editor
-                        height="63vh"
+                        height="80vh"
                         width="35vw"
                         theme="vs-dark"
                         value={getInitialCode()}
@@ -193,15 +195,15 @@ export default function CreateChallenge() {
                 </Card>
 
                 <div
-                    style={{marginLeft: "50rem", marginRight: "50rem", clear: "both"}}
+                    style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}
                 >
-                    <Button
-                        sx={{paddingY: "10px", paddingX: "20px", borderRadius: "15px"}}
-                        variant="outlined"
+                    <button
+                        style={{marginTop: "35px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                            boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.5rem", fontSize: "17px"}}
                         onClick={submitChallenge}
                     >
                         Submit Challenge
-                    </Button>
+                    </button>
                 </div>
 
                 <div style={{color: "blue", fontSize: "20px", float: "left"}}></div>
