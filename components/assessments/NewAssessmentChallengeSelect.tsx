@@ -20,12 +20,12 @@ export const NewAssessmentChallengeSelect = (props: NewAssessmentChallengeSelect
         <Card
             sx={{
                 borderRadius: "20px",
-                marginRight: "3rem",
-                marginY: "2vh",
+                marginRight: "4rem",
+                marginTop: "50px",
                 padding: "10px",
                 borderColor: "black",
                 width: "40rem",
-                height: "80vh",
+                height: "40vh",
                 float: "right",
             }}
         >

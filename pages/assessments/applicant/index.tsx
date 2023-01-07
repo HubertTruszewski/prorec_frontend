@@ -46,7 +46,7 @@ export default function () {
         <Card sx={{width: "80%", margin: "0 auto", marginTop: "50px", paddingY: "10px", textAlign: "center"}}>
             <h1>Hi!</h1>
             <p>We are very pleased to welcome you in our recruitment system.</p>
-            <p>To start solving your tasks please provide below the code what you received in email message</p>
+            <p>To start solving your tasks please provide below the code which you received in email message</p>
             <div>
                 <TextField
                     label={"Invitation code"}

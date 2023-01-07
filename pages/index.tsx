@@ -16,7 +16,7 @@ export default function Home() {
         <Card
             sx={{
                 borderRadius: "20px",
-                marginY: "2vh",
+                marginY: "15vh",
                 padding: "2rem",
                 borderColor: "black",
                 width: "40rem",

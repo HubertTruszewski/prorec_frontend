@@ -86,7 +86,7 @@ export default function () {
             }}
         >
             <h1 style={{marginTop: "0px"}}>
-              <span style={{color: "purple", fontWeight: "bold"}}>
+              <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                 Basic info
               </span>
             </h1>
@@ -133,7 +133,7 @@ export default function () {
             }}
         >
             <h1 style={{marginTop: "0px"}}>
-              <span style={{color: "purple", fontWeight: "bold"}}>
+              <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                 Tasks
               </span>
             </h1>
@@ -150,7 +150,7 @@ export default function () {
                         Start assessment
                     </Button>
                 </div> : <div>
-                    <span style={{color: "purple", fontWeight: "bold"}}>
+                    <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                         Task list:
                     </span>
                     <ol>

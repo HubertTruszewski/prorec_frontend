@@ -33,13 +33,13 @@ export const AssessmentAttempts = ({attempts, challenges}: AssessmentAttemptsPro
         borderRadius: "20px",
         marginRight: "3rem",
         marginY: "2vh",
-        padding: "10px",
+        paddingLeft: "20px",
         borderColor: "black",
         width: "50rem",
-        height: "54vh",
+        height: "40vh",
         float: "right",
     }}>
-        <span style={{color: "purple", fontWeight: "bold"}}>
+        <span style={{color: "#BA53FF", fontWeight: "bold"}}>
             <h1>
                 Attempts
             </h1>

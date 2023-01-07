@@ -14,24 +14,24 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
     return (<Card
         sx={{
             borderRadius: "20px",
-            paddingY: "5px",
-            paddingX: "10px",
+            paddingY: "20px",
+            paddingX: "20px",
             marginX: "3rem",
-            marginY: "2vh",
+            marginTop: "50px",
             borderColor: "black",
-            heightMax: "18vh",
+            height: "40vh",
             width: "65rem",
             float: "left",
         }}
     >
         <h1 style={{marginTop: "0px"}}>
-                      <span style={{color: "purple", fontWeight: "bold"}}>
+                      <span style={{color: "#BA53FF", fontWeight: "bold"}}>
                         Basic info
                       </span>
         </h1>
         <div>
             <TextField
-                sx={{width: "300px", marginBottom: "20px"}}
+                sx={{width: "300px", marginBottom: "40px"}}
                 required
                 id="outlined-required"
                 label="Applicant's email address"
@@ -42,7 +42,7 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
         </div>
         <div>
             <TextField
-                sx={{width: "300px", marginBottom: "20px"}}
+                sx={{width: "300px", marginBottom: "40px"}}
                 type="number"
                 InputProps={{inputProps: {min: 0, max: 240}}}
                 required

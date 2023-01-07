@@ -1,5 +1,5 @@
 import {ChallengeDTO} from "../../Challenge.dto";
-import {Button, Card, Link} from "@mui/material";
+import {Card, Link} from "@mui/material";
 import {useEffect, useState} from "react";
 import {authHeader} from "../../services/authHeader";
 import {AuthService} from "../../services/AuthService";
@@ -25,54 +25,54 @@ export default function () {
     }, []);
 
     return (
-        <div>
+        <div style={{margin: "50px 50px"}}>
             {challengeList.map((challenge) => (
                 <Card key={challenge.challengeId}
                       sx={{
                           borderRadius: "20px",
-                          padding: "5px",
+                          padding: "15px",
                           textAlign: "center",
                           justifyContent: "center",
-                          margin: "3rem",
+                          marginRight: "2rem",
+                          marginBottom: "2rem",
                           borderColor: "black",
                           height: "10rem",
                           width: "16rem",
                           float: "left",
                       }}
                 >
-                    <span style={{fontSize: "2rem"}}>{challenge.name}</span>
+                    <span style={{fontSize: "2rem",}}>{challenge.name}</span>
                     <br></br>
 
-                    <Button sx={{margin: "15px"}} variant="contained">
+                    <button style={{margin: "15px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "10rem", height: "3rem"}} >
                         <Link
                             underline="none"
                             color="inherit"
                             href={"/challenges/" + challenge.challengeId + "/edit"}
                         >
-                            Edit
+                            <span style={{fontSize: "17px"}}>Edit</span>
                         </Link>
-                    </Button>
+                    </button>
                 </Card>
             ))}
             <Card
                 sx={{
                     borderRadius: "20px",
-                    padding: "5px",
+                    padding: "15px",
                     textAlign: "center",
-                    margin: "3rem",
+                    // margin: "2rem",
                     borderColor: "black",
                     height: "10rem",
                     width: "16rem",
                     float: "left",
                 }}
             >
-                New challenge
-                <br></br>
                 <Link underline="none" color="inherit" href="/challenges/create">
-                    <span style={{fontSize: "5rem", margin: "2rem"}}>+</span>
+                    <span style={{fontSize: "5rem", margin: "1rem"}}>+</span>
                 </Link>
             </Card>
         </div>
     );
-};
+}
 
