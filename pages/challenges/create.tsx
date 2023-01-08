@@ -11,48 +11,39 @@ export default function CreateChallenge() {
     const router = useRouter();
     const [name, setName] = useState<string>("");
     const [code, setCode] = useState<string>("");
-    const [difficulty, setDifficulty] = useState<ChallengeType>(ChallengeType.EASY);
-    const [language, setLanguage] = useState<LanguageName>(LanguageName.JAVASCRIPT);
+    const [difficulty, setDifficulty] = useState<ChallengeType>(
+        ChallengeType.EASY
+    );
+    const [language, setLanguage] = useState<LanguageName>(
+        LanguageName.JAVASCRIPT
+    );
     const [description, setDescription] = useState<string>("");
     const [exampleTestCases, setExampleTestCases] = useState<string>("");
-    const [nameError, setNameError] = useState<boolean>(false);
 
     useEffect(() => {
         if (AuthService.protectSite(router)) {
             return;
         }
-    })
+    });
 
     const codeChangeHandler = (newCode: string | undefined) => {
         setCode(newCode ?? "");
     };
 
     const getChallengePageLink = (challengeId: number): string => {
-        return `/challenges/${challengeId}/edit`
-    }
+        return `/challenges/${challengeId}/edit`;
+    };
 
     const getInitialCode = () => {
         switch (language) {
             case LanguageName.JAVASCRIPT:
-                return "// type initial code here"
+                return "// type initial code here";
             case LanguageName.PYTHON:
-                return "# type initial code here"
+                return "# type initial code here";
         }
-    }
-
-    const formValid = (): boolean => {
-        let valid = true;
-        if (name === "") {
-            setNameError(true);
-            valid = false;
-        }
-        return valid;
-    }
+    };
 
     const submitChallenge = () => {
-        if (!formValid()) {
-            return;
-        }
         const challenge: CreateChallengeDTO = {
             name: name,
             description: description,
@@ -69,9 +60,12 @@ export default function CreateChallenge() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(challenge),
-        }).then(data => data.json())
+        })
+            .then((data) => data.json())
             .then((challenge: ChallengeDTO) => {
-                const urlToRedirect: string = getChallengePageLink(challenge.challengeId);
+                const urlToRedirect: string = getChallengePageLink(
+                    challenge.challengeId
+                );
                 void router.push(urlToRedirect);
             });
     };
@@ -106,8 +100,6 @@ export default function CreateChallenge() {
                             onInput={(event) => {
                                 setName((event.target as HTMLInputElement).value);
                             }}
-                            error={nameError}
-                            helperText={nameError ? "Cannot be empty" : ""}
                         />
                         <Select
                             labelId="select-difficulty"
@@ -115,7 +107,11 @@ export default function CreateChallenge() {
                             value={difficulty}
                             label="Difficulty level"
                             onChange={(event) => {
-                                setDifficulty(ChallengeType[event.target.value as keyof typeof ChallengeType]);
+                                setDifficulty(
+                                    ChallengeType[
+                                        event.target.value as keyof typeof ChallengeType
+                                        ]
+                                );
                             }}
                             sx={{
                                 width: "15rem",
@@ -134,7 +130,9 @@ export default function CreateChallenge() {
                             value={language}
                             label="Language"
                             onChange={(event) => {
-                                setLanguage(LanguageName[event.target.value as keyof typeof LanguageName]);
+                                setLanguage(
+                                    LanguageName[event.target.value as keyof typeof LanguageName]
+                                );
                             }}
                             sx={{
                                 width: "15rem",
@@ -156,7 +154,7 @@ export default function CreateChallenge() {
                             id="outlined-basic"
                             label="Description"
                             variant="outlined"
-                            rows="10"
+                            rows="6"
                             multiline={true}
                             onInput={(event) => {
                                 setDescription((event.target as HTMLInputElement).value);
@@ -210,18 +208,24 @@ export default function CreateChallenge() {
                 </Card>
 
                 <div
-                    style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}
+                    style={{
+                        marginLeft: "50rem",
+                        marginRight: "50rem",
+                        clear: "both",
+                        textAlign: "center",
+                    }}
                 >
                     <button
                         style={{
                             marginTop: "35px",
-                            background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                            background:
+                                "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
                             boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
                             border: "none",
                             borderRadius: "20px",
                             width: "12rem",
                             height: "2.5rem",
-                            fontSize: "17px"
+                            fontSize: "17px",
                         }}
                         onClick={submitChallenge}
                     >

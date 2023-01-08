@@ -9,9 +9,6 @@ export default function () {
     const logout = router.query.logout;
     const [errorVisibility, setErrorVisibility] = useState<boolean>(false)
     const [logoutMessage, setLogoutMessage] = useState<boolean>(false);
-    const [usernameError, setUsernameError] = useState<boolean>(false);
-    const [passwordError, setPasswordError] = useState<boolean>(false);
-
     const loginUserDTO: LoginUserDTO = {
         username: "",
         password: ""
@@ -21,23 +18,7 @@ export default function () {
         loginUserDTO[event.target.name] = event.target.value;
     }
 
-    const formValid = (): boolean => {
-        let valid = true;
-        if (loginUserDTO.username === "") {
-            setUsernameError(true);
-            valid = false;
-        }
-        if (loginUserDTO.password === "") {
-            setPasswordError(true)
-            valid = false;
-        }
-        return valid;
-    }
-
     const handleLogin = () => {
-        if (!formValid()) {
-            return;
-        }
         AuthService.login(loginUserDTO).then((response) => {
             if (response.ok) {
                 window.location.href = "/";
@@ -73,40 +54,20 @@ export default function () {
                 textAlign: "center"
             }}
         >
-            <h1 style={{color: "#ba53ff", fontWeight: "bold"}}>
+            <h1 style={{color: "#BA53FF", fontWeight: "bold"}}>
                 LOGIN
             </h1>
             <div>
                 <div style={{marginTop: "60px"}}>
-                    <TextField label={"Username"}
-                               name={"username"}
-                               onChange={handleTestFieldChange}
-                               error={usernameError}
-                               helperText={usernameError ? "Cannot be empty" : ""}
-                    />
+                    <TextField label={"Username"} name={"username"} onChange={handleTestFieldChange}/>
                 </div>
                 <div style={{marginTop: "20px"}}>
-                    <TextField type={"password"}
-                               label={"Password"}
-                               name={"password"}
-                               onChange={handleTestFieldChange}
-                               error={passwordError}
-                               helperText={passwordError ? "Cannot be empty" : ""}
-                    />
+                    <TextField type={"password"} label={"Password"} name={"password"} onChange={handleTestFieldChange}/>
                 </div>
                 <div style={{marginTop: "20px"}}>
-                    <button style={{
-                        background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
-                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-                        border: "none",
-                        borderRadius: "20px",
-                        width: "12rem",
-                        height: "2.4rem",
-                        fontSize: "15px",
-                        textAlign: "center"
-                    }}
-                            onClick={handleLogin}>Log in
-                    </button>
+                    <button style={{background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
+                            onClick={handleLogin}>Log in</button>
                 </div>
                 {errorVisibility && <Alert sx={{marginTop: "10px"}} severity={"error"}>
                     Invalid username and/or password

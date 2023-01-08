@@ -11,36 +11,12 @@ export default function () {
     const [newUserDTO, setNewUserDTO] = useState<NewUserDTO>({
         email: "", password: "", username: ""
     })
-    const [usernameError, setUsernameError] = useState<boolean>(false);
-    const [emailError, setEmailError] = useState<boolean>(false);
-    const [passwordError, setPasswordError] = useState<boolean>(false);
 
     const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
         setNewUserDTO({...newUserDTO, [event.target.name]: event.target.value})
     }
 
-    const formValid = (): boolean => {
-        let valid = true;
-        if (newUserDTO.username === "") {
-            setUsernameError(true);
-            valid = false;
-        }
-        if (newUserDTO.email === "") {
-            setEmailError(true);
-            valid = false;
-        }
-        if (newUserDTO.password === "") {
-            setPasswordError(true);
-            valid = false;
-        }
-        return valid;
-    }
-
     const handleRegister = () => {
-        if (!formValid()) {
-            return;
-        }
-
         AuthService.register(newUserDTO).then(response => {
             if (response.ok) {
                 setSuccess(true);
@@ -69,7 +45,7 @@ export default function () {
                 textAlign: "center"
             }}
         >
-            <h1 style={{color: "#ba53ff", fontWeight: "bold",}}>
+            <h1 style={{color: "#BA53FF", fontWeight: "bold",}}>
                 REGISTER
             </h1>
             <div>
@@ -79,8 +55,6 @@ export default function () {
                         name={"username"}
                         onChange={handleTextFieldChange}
                         value={newUserDTO.username}
-                        error={usernameError}
-                        helperText={usernameError ? "Cannot be empty" : ""}
                     />
                 </div>
                 <div style={{marginTop: "20px"}}>
@@ -89,8 +63,6 @@ export default function () {
                         name={"email"}
                         onInput={handleTextFieldChange}
                         value={newUserDTO.email}
-                        error={emailError}
-                        helperText={emailError ? "Cannot be empty" : ""}
                     />
                 </div>
                 <div style={{marginTop: "20px"}}>
@@ -100,24 +72,12 @@ export default function () {
                         name={"password"}
                         onInput={handleTextFieldChange}
                         value={newUserDTO.password}
-                        error={passwordError}
-                        helperText={passwordError ? "Cannot be empty" : ""}
                     />
                 </div>
                 <div style={{marginTop: "20px"}}>
-                    <button
-                        style={{
-                            background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
-                            boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-                            border: "none",
-                            borderRadius: "20px",
-                            width: "12rem",
-                            height: "2.4rem",
-                            fontSize: "15px",
-                            textAlign: "center"
-                        }}
-                        onClick={handleRegister}>Register
-                    </button>
+                    <button style={{background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
+                            onClick={handleRegister}>Register</button>
                 </div>
                 {success && <Alert sx={{marginTop: "10px"}} severity={"success"}>
                     Successfully registered! Now you can go to <Link href={"/login"}><b>login page</b></Link>.

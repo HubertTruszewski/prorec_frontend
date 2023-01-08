@@ -9,14 +9,10 @@ export interface NewAssessmentBasicInfoFormProps {
     setExpiryDate: (expiryDate: string) => void;
     bulk: boolean;
     setBulk: (bulk: boolean) => void;
-    solvingTimeError: boolean;
-    datePickerError: boolean;
-    emailError: boolean;
 }
 
 export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProps) => {
     const [expiryDateField, setExpiryDateField] = useState<DateTime | null>(null);
-
     return (<Card
         sx={{
             borderRadius: "20px",
@@ -48,8 +44,6 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
                 defaultValue=""
                 name="email"
                 onChange={props.handleInputChange}
-                error={props.emailError}
-                helperText={props.emailError ? "Cannot be empty" : ""}
             />
         </div> : <div><TextField
             sx={{width: "300px", marginBottom: "40px"}}
@@ -59,8 +53,6 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
             defaultValue=""
             name="email"
             onChange={props.handleInputChange}
-            error={props.emailError}
-            helperText={props.emailError ? "Cannot be empty" : ""}
         />
         </div>}
         <div>
@@ -74,8 +66,6 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
                 defaultValue=""
                 name="solvingTime"
                 onChange={props.handleInputChange}
-                error={props.solvingTimeError}
-                helperText={props.solvingTimeError ? "Cannot be empty" : ""}
             />
         </div>
         <div style={{marginBottom: "20px"}}>
@@ -87,8 +77,7 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
                         props.setExpiryDate(date !== null ? date.toString() : "")
                     }}
                     label="Expiry date"
-                    renderInput={(params) => <TextField {...params} error={props.datePickerError}
-                                                        helperText={props.datePickerError ? "Cannot be empty" : ""}/>}
+                    renderInput={(params) => <TextField {...params} />}
                 />
             </LocalizationProvider>
         </div>
