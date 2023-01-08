@@ -15,6 +15,7 @@ export default function CreateChallenge() {
     const [language, setLanguage] = useState<LanguageName>(LanguageName.JAVASCRIPT);
     const [description, setDescription] = useState<string>("");
     const [exampleTestCases, setExampleTestCases] = useState<string>("");
+    const [nameError, setNameError] = useState<boolean>(false);
 
     useEffect(() => {
         if (AuthService.protectSite(router)) {
@@ -31,7 +32,7 @@ export default function CreateChallenge() {
     }
 
     const getInitialCode = () => {
-        switch(language) {
+        switch (language) {
             case LanguageName.JAVASCRIPT:
                 return "// type initial code here"
             case LanguageName.PYTHON:
@@ -39,7 +40,19 @@ export default function CreateChallenge() {
         }
     }
 
+    const formValid = (): boolean => {
+        let valid = true;
+        if (name === "") {
+            setNameError(true);
+            valid = false;
+        }
+        return valid;
+    }
+
     const submitChallenge = () => {
+        if (!formValid()) {
+            return;
+        }
         const challenge: CreateChallengeDTO = {
             name: name,
             description: description,
@@ -93,6 +106,8 @@ export default function CreateChallenge() {
                             onInput={(event) => {
                                 setName((event.target as HTMLInputElement).value);
                             }}
+                            error={nameError}
+                            helperText={nameError ? "Cannot be empty" : ""}
                         />
                         <Select
                             labelId="select-difficulty"
@@ -198,8 +213,16 @@ export default function CreateChallenge() {
                     style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}
                 >
                     <button
-                        style={{marginTop: "35px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
-                            boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.5rem", fontSize: "17px"}}
+                        style={{
+                            marginTop: "35px",
+                            background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                            boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+                            border: "none",
+                            borderRadius: "20px",
+                            width: "12rem",
+                            height: "2.5rem",
+                            fontSize: "17px"
+                        }}
                         onClick={submitChallenge}
                     >
                         Submit Challenge
