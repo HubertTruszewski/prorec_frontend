@@ -1,4 +1,4 @@
-import {Alert, Button, Card, TextField} from "@mui/material";
+import {Alert, Card, TextField} from "@mui/material";
 import {LoginUserDTO} from "../../components/login/dto/LoginUserDTO";
 import {ChangeEvent, useEffect, useState} from "react";
 import {useRouter} from "next/router";
@@ -40,21 +40,21 @@ export default function () {
         }
     })
 
-    return <div style={{justifyContent: "center", display: "flex"}}>
+    return <div style={{justifyContent: "center", display: "flex",}}>
         <Card
             sx={{
                 borderRadius: "20px",
-                marginY: "2vh",
+                marginY: "15vh",
                 padding: "2rem",
                 borderColor: "black",
                 width: "40rem",
-                height: "60vh",
+                height: "50vh",
                 float: "center",
                 justifyContent: "center",
                 textAlign: "center"
             }}
         >
-            <h1 style={{color: "purple", fontWeight: "bold"}}>
+            <h1 style={{color: "#BA53FF", fontWeight: "bold"}}>
                 LOGIN
             </h1>
             <div>
@@ -65,7 +65,9 @@ export default function () {
                     <TextField type={"password"} label={"Password"} name={"password"} onChange={handleTestFieldChange}/>
                 </div>
                 <div style={{marginTop: "20px"}}>
-                    <Button variant={"contained"} onClick={handleLogin}>Log in</Button>
+                    <button style={{background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
+                            onClick={handleLogin}>Log in</button>
                 </div>
                 {errorVisibility && <Alert sx={{marginTop: "10px"}} severity={"error"}>
                     Invalid username and/or password

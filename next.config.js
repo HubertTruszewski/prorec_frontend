@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
-const getHost = () => process.env.FRONTHOST === undefined ? "localhost" : process.env.FRONTHOST;
+const backendHost = process.env.BACKENDHOST === undefined ? "localhost" : process.env.BACKENDHOST;
+const backendPort = process.env.BACKENDPORT === undefined ? "8085" : process.env.BACKENDPORT;
 
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+    reactStrictMode: true,
+    swcMinify: true,
     async rewrites() {
         return [
             {
                 source: '/api/:path*',
-                destination: 'http://'+getHost()+':8085/:path*' // Proxy to Backend
+                destination: 'http://' + backendHost + ':' + backendPort + '/:path*' // Proxy to Backend
             }
         ]
     },
