@@ -1,4 +1,4 @@
-import {Autocomplete, Card, Checkbox, TextField} from "@mui/material";
+import {Alert, Autocomplete, Card, Checkbox, TextField} from "@mui/material";
 import React, {SyntheticEvent} from "react";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -7,6 +7,7 @@ import {ChallengeDTO} from "../../Challenge.dto";
 export interface NewAssessmentChallengeSelectProps {
     challengesList: ChallengeDTO[];
     handleChallengesChange: (event: SyntheticEvent, values: ChallengeDTO[]) => void;
+    challengeError: boolean;
 }
 
 export const NewAssessmentChallengeSelect = (props: NewAssessmentChallengeSelectProps) => {
@@ -52,6 +53,7 @@ export const NewAssessmentChallengeSelect = (props: NewAssessmentChallengeSelect
                     <TextField {...params} label="Challenges" placeholder="Challenges"/>
                 )}
             />
+            {props.challengeError && <Alert severity={"error"}>Choose at least one challenge</Alert>}
         </Card>
     );
 }

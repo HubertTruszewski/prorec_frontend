@@ -19,6 +19,10 @@ export default function Home() {
     const router = useRouter();
     const [challenges, setChallenges] = useState<ChallengeDTO[]>([]);
     const [bulk, setBulk] = useState<boolean>(false);
+    const [solvingTimeError, setSolvingTimeError] = useState<boolean>(false);
+    const [emailError, setEmailError] = useState<boolean>(false);
+    const [datePickerError, setDatePickerError] = useState<boolean>(false);
+    const [challengesError, setChallengesError] = useState<boolean>(false);
     const getAssessmentPageLink = (assessmentId: number): string => {
         return `/assessments/${assessmentId}/view`;
     }
@@ -36,7 +40,31 @@ export default function Home() {
             });
     }, [])
 
+    const formValid = (): boolean => {
+        let valid = true;
+        if (newAssessmentDTO.email === "") {
+            setEmailError(true);
+            valid = false;
+        }
+        if (newAssessmentDTO.solvingTime === 0) {
+            setSolvingTimeError(true);
+            valid = false;
+        }
+        if (newAssessmentDTO.expiryDate === "") {
+            setDatePickerError(true);
+            valid = false;
+        }
+        if (newAssessmentDTO.challengesIds.length === 0) {
+            setChallengesError(true);
+            valid = false;
+        }
+        return valid;
+    }
+
     const createAssessment = () => {
+        if (!formValid()) {
+            return;
+        }
         const addUrl: string = bulk ? "/api/assessment/addBulk" : "/api/assessment/add";
         fetch(addUrl, {
             method: "POST",
@@ -76,10 +104,14 @@ export default function Home() {
                 setExpiryDate={setExpiryDate}
                 bulk={bulk}
                 setBulk={setBulk}
+                solvingTimeError={solvingTimeError}
+                datePickerError={datePickerError}
+                emailError={emailError}
             />
             <NewAssessmentChallengeSelect
                 challengesList={challenges}
                 handleChallengesChange={handleChallengesChange}
+                challengeError={challengesError}
             />
             <div style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}>
                 <button
