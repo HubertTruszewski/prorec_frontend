@@ -18,6 +18,7 @@ export default function Home() {
     };
     const router = useRouter();
     const [challenges, setChallenges] = useState<ChallengeDTO[]>([]);
+    const [bulk, setBulk] = useState<boolean>(false);
     const getAssessmentPageLink = (assessmentId: number): string => {
         return `/assessments/${assessmentId}/view`;
     }
@@ -36,7 +37,8 @@ export default function Home() {
     }, [])
 
     const createAssessment = () => {
-        fetch("/api/assessment/add", {
+        const addUrl: string = bulk ? "/api/assessment/addBulk" : "/api/assessment/add";
+        fetch(addUrl, {
             method: "POST",
             headers: {
                 ...authHeader(),
@@ -47,7 +49,11 @@ export default function Home() {
         })
             .then((result) => result.json())
             .then((assessment: AssessmentDTO) => {
-                void router.push(getAssessmentPageLink(assessment.assessmentId));
+                if (bulk) {
+                    void router.push("/assessments");
+                } else {
+                    void router.push(getAssessmentPageLink(assessment.assessmentId));
+                }
             })
     }
 
@@ -65,13 +71,29 @@ export default function Home() {
 
     return (<>
         <div style={{height: "40vh"}}>
-            <NewAssessmentBasicInfoForm handleInputChange={handleInputChange} setExpiryDate={setExpiryDate}/>
-            <NewAssessmentChallengeSelect challengesList={challenges}
-                                          handleChallengesChange={handleChallengesChange}/>
+            <NewAssessmentBasicInfoForm
+                handleInputChange={handleInputChange}
+                setExpiryDate={setExpiryDate}
+                bulk={bulk}
+                setBulk={setBulk}
+            />
+            <NewAssessmentChallengeSelect
+                challengesList={challenges}
+                handleChallengesChange={handleChallengesChange}
+            />
             <div style={{marginLeft: "50rem", marginRight: "50rem", clear: "both", textAlign: 'center'}}>
                 <button
-                    style={{marginTop: "370px", background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
-                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)", border: "none", borderRadius: "20px", width: "12rem", height: "2.4rem", fontSize: "15px", textAlign: "center"}}
+                    style={{
+                        marginTop: "100px",
+                        background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #BA53FF",
+                        boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+                        border: "none",
+                        borderRadius: "20px",
+                        width: "12rem",
+                        height: "2.4rem",
+                        fontSize: "15px",
+                        textAlign: "center"
+                    }}
                     onClick={createAssessment}
                 >
                     Create assessment

@@ -1,4 +1,4 @@
-import {Card, TextField} from "@mui/material";
+import {Card, Switch, TextField} from "@mui/material";
 import React, {ChangeEvent, useState} from "react";
 import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
@@ -7,6 +7,8 @@ import {DateTime} from "luxon";
 export interface NewAssessmentBasicInfoFormProps {
     handleInputChange: (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
     setExpiryDate: (expiryDate: string) => void;
+    bulk: boolean;
+    setBulk: (bulk: boolean) => void;
 }
 
 export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProps) => {
@@ -19,27 +21,40 @@ export const NewAssessmentBasicInfoForm = (props: NewAssessmentBasicInfoFormProp
             marginX: "3rem",
             marginTop: "50px",
             borderColor: "black",
-            height: "40vh",
+            height: "70vh",
             width: "65rem",
             float: "left",
         }}
     >
         <h1 style={{marginTop: "0px"}}>
-                      <span style={{color: "#BA53FF", fontWeight: "bold"}}>
+                      <span style={{color: "#ba53ff", fontWeight: "bold"}}>
                         Basic info
                       </span>
         </h1>
-        <div>
+        <div>Individual <Switch onChange={() => props.setBulk(!props.bulk)}/> Bulk
+        </div>
+        {props.bulk ? <div>
             <TextField
-                sx={{width: "300px", marginBottom: "40px"}}
+                sx={{width: "500px", marginBottom: "40px"}}
                 required
+                multiline={true}
+                minRows={12}
                 id="outlined-required"
-                label="Applicant's email address"
+                label="Paste email addresses here"
                 defaultValue=""
                 name="email"
                 onChange={props.handleInputChange}
             />
-        </div>
+        </div> : <div><TextField
+            sx={{width: "300px", marginBottom: "40px"}}
+            required
+            id="outlined-required"
+            label="Applicant's email address"
+            defaultValue=""
+            name="email"
+            onChange={props.handleInputChange}
+        />
+        </div>}
         <div>
             <TextField
                 sx={{width: "300px", marginBottom: "40px"}}
