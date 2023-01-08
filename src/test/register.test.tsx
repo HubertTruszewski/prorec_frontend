@@ -6,11 +6,7 @@ import { RouterContext } from "next/dist/shared/lib/router-context";
 
 describe("Register", () => {
   it("Register render of components", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter({})}>
-        <Register />
-      </RouterContext.Provider>
-    );
+    render(<Register />);
     const inputName = screen.getByLabelText("Username");
     const inputEmail = screen.getByLabelText("Email address");
     const inputPass = screen.getByLabelText("Password");
@@ -22,11 +18,7 @@ describe("Register", () => {
 
 describe("Register", () => {
   it("type username", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter({})}>
-        <Register />
-      </RouterContext.Provider>
-    );
+    render(<Register />);
     const inputName = screen.getByLabelText("Username");
     fireEvent.change(inputName, { target: { value: "user" } });
     expect(inputName.value).toBe("user");

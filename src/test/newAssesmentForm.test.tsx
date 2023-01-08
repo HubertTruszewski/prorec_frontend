@@ -8,18 +8,16 @@ import { ChangeEvent } from "react";
 describe("Create Assesment", () => {
   it("render inputs", () => {
     render(
-      <RouterContext.Provider value={createMockRouter({})}>
-        <NewAssessmentBasicInfoForm
-          handleInputChange={function (
-            event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-          ): void {
-            throw new Error("Function not implemented.");
-          }}
-          setExpiryDate={function (expiryDate: string): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
-      </RouterContext.Provider>
+      <NewAssessmentBasicInfoForm
+        handleInputChange={function (
+          event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+        setExpiryDate={function (expiryDate: string): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     );
     const inputEmail = screen.getByText("Applicant's email address");
     expect(inputEmail).toBeInTheDocument();
